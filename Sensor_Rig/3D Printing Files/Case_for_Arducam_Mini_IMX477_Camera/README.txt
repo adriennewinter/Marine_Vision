@@ -1,0 +1,1 @@
+Case for Arducam Mini IMX477 Camera Module (Support GoPro) by Arducam on Thingiverse: https://www.thingiverse.com/thing:4945985
