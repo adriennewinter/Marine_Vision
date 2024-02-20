@@ -1,0 +1,3 @@
+<launch>
+	<node pkg="ezo_prs" type="ezo_prs_node" name="ezo_prs_node" output="screen"/>
+</launch>

@@ -1,0 +1,21 @@
+<!-- Top Level Launch File for Data Collection -->
+
+<!-- roslaunch launch StereoCalibrationRecord.launch bag_name:="Stereo_Data" image_framerate:=4 image_width:=600 image_height:=600 buffsize:=2000 -->
+
+<launch> 
+    <arg name="image_width" default="600"/>
+    <arg name="image_height" default="600"/>
+    <arg name="image_framerate" default="1"/>
+    <arg name="bag_name" default="Stereo_Calibration_Data"/>
+    <arg name="buffsize" default="1000"/>
+    
+    <include file="$(find ros_deep_learning)/launch/two_video_sources.launch">
+           <arg name="input_width" value="$(arg image_width)"/>
+           <arg name="input_height" value="$(arg image_height)"/>
+           <arg name="input_framerate" value="$(arg image_framerate)"/>
+    </include>    
+    <include file="$(find launch)/src/stereo_rosbag_record.launch">
+           <arg name="buffsize" value="$(arg buffsize)"/>
+           <arg name="bag_name" value="$(arg bag_name)"/>
+    </include>
+</launch>

@@ -1,0 +1,8 @@
+prefix=/home/user/Documents/ROS_Workspace/install
+
+Name: synchronize
+Description: Description of synchronize
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

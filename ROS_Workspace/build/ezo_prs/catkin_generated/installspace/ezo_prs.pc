@@ -1,0 +1,8 @@
+prefix=/home/user/Documents/ROS_Workspace/install
+
+Name: ezo_prs
+Description: Description of ezo_prs
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

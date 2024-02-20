@@ -1,0 +1,8 @@
+# Synchronize Node Parameters
+
+rosbagFolderPath: "/mnt/c/Users/uctsh/OneDrive - University of Cape Town/Documents/MASTERS/EXPERIMENTAL WORK/Dataset Creation/IMT Ship Hull Vinyl/Data" #path/to/folder
+unsynchedBagName: "Ship_Hull_4.bag"
+cam0_topic: /video_source_0/raw
+cam1_topic: /video_source_1/raw
+imu_topic: /imu/data
+prs_topic: /pressure

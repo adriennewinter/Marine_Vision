@@ -1,0 +1,8 @@
+<!-- Launch the data syncronization node -->
+<!-- Make sure to edit the synchronize_node_params.yaml config file before running -->
+<!-- Call: roslaunch synchronize stereo-inertial_synch.launch -->
+
+<launch>
+    <rosparam file="$(find synchronize)/config/stereo_inertial_synch_params.yaml"/>
+    <node pkg="synchronize" type="stereo_inertial_synch" name="stereo_inertial_synch" output="screen"/>
+</launch>

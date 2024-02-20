@@ -1,0 +1,23 @@
+<!-- Top Level Launch File for Data Collection -->
+
+<!-- roslaunch launch DataCollection.launch bag_name:="Sensor_Data" image_framerate:=15 image_width:=600 image_height:=600 buffsize:=2000 -->
+
+<launch> 
+    <arg name="image_width" default="600"/>
+    <arg name="image_height" default="600"/>
+    <arg name="image_framerate" default="10"/>
+    <arg name="bag_name" default="Sensor_Data"/>
+    <arg name="buffsize" default="1000"/>
+    
+    <include file="$(find ros_deep_learning)/launch/two_video_sources.launch">
+           <arg name="input_width" value="$(arg image_width)"/>
+           <arg name="input_height" value="$(arg image_height)"/>
+           <arg name="input_framerate" value="$(arg image_framerate)"/>
+    </include>    
+    <include file="$(find xsens_mti_driver)/launch/xsens_mti_node.launch"/>
+    <include file="$(find ezo_prs)/launch/ezo_prs_node.launch"/>
+    <include file="$(find launch)/src/sensor_rosbag_record.launch">
+           <arg name="buffsize" value="$(arg buffsize)"/>
+           <arg name="bag_name" value="$(arg bag_name)"/>
+    </include>
+</launch>

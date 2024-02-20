@@ -1,0 +1,11 @@
+<!-- Record sensor data into the same rosbag -->
+
+<launch>
+    <arg name="bag_directory" value="/home/user/MSc_ROS_Workspace/rosbags"/>
+    <arg name="bag_name" default="Sensor_Data"/>
+    <arg name="buffsize" default="1000"/>
+    <!-- buffer size of 0 = infinite, 1000 = 1GB -->
+
+    <node pkg="rosbag" type="record" name="Sensor_Data_Record"
+          args="record --buffsize=$(arg buffsize) -o $(arg bag_directory)/$(arg bag_name) /two_video_sources/image_0_raw /two_video_sources/image_1_raw /pressure /imu/data"/>
+</launch>

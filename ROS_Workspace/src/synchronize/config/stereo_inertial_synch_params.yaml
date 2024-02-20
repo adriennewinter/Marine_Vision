@@ -1,0 +1,7 @@
+# Synchronize Node Parameters
+
+rosbagFolderPath: "/mnt/c/Users/uctsh/OneDrive - University of Cape Town/Documents/MASTERS/EXPERIMENTAL WORK/Calibration/Stereo Inertial Calibration/stereo inertial calibration 2" # /path/to/folder
+unsynchedBagName: "Stereo_Inertial_Calibration_2.bag" # bagName.bag
+cam0_topic: "/video_source_0/raw"
+cam1_topic: "/video_source_1/raw"
+imu_topic: "/imu/data"

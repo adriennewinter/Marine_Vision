@@ -1,0 +1,8 @@
+<!-- Launch the data syncronization node -->
+<!-- Make sure to edit the stereo_synch_CompressedImage_params.yaml config file before running -->
+<!-- Call: roslaunch synchronize stereo_inertial_synch_CompressedImage.launch -->
+
+<launch>
+    <rosparam file="$(find synchronize)/config/stereo_inertial_synch_CompressedImage_params.yaml"/>
+    <node pkg="synchronize" type="stereo_inertial_synch_CompressedImage" name="stereo_inertial_synch_CompressedImage" output="screen"/>
+</launch>

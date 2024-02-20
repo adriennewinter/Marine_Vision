@@ -1,0 +1,8 @@
+<!-- Launch the data syncronization node -->
+<!-- Make sure to edit the synchronize_node_params.yaml config file before running -->
+<!-- Call: roslaunch synchronize synchronize_node.launch -->
+
+<launch>
+    <rosparam file="$(find synchronize)/config/synchronize_all_CompressedImage_params.yaml"/>
+    <node pkg="synchronize" type="synchronize_all_CompressedImage" name="synchronize_all_CompressedImage" output="screen"/>
+</launch>
