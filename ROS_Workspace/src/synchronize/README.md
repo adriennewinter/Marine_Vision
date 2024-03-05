@@ -4,8 +4,12 @@ This ROS package (tested on ROS1 Melodic and Noetic) contains C++ code for synch
 
 The '[Approximate Time Synchronizer](http://wiki.ros.org/message_filters/ApproximateTime)' filter is used from the ROS '[message_filters](http://wiki.ros.org/message_filters)' package to synchronize messages. This filter outputs synchronized messages at the lowest sensor frequency. To preserve the higher sensor frequencies, a series of buffers are used.
 
+* stereo synch: two camera topics.
+* stereo inertial synch: two camera topics and IMU.
+* synchronize all: two camera topics, IMU and pressure sensor.
+
 ## Sensor Data Types
-The camera data is expected to be of the type "[sensor_msgs/Image](http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/Image.html)".
+The camera data is expected to be of the type "[sensor_msgs/Image](http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/Image.html)" or "[sensor_msgs/CompressedImage](http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/CompressedImage.html)".
 
 The IMU data is expected to be of the type "[sensor_msgs/IMU](http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Imu.html)".
 
