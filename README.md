@@ -1,7 +1,5 @@
 # Marine_Vision
-Supplementary material to Adrienne Winter's MSc Mechatronics Engineering dissertation with the African Robotics Unit at the University of Cape Town.
-
-Supervised by Robyn Verrinder, Professor Edward Boje and Doctor Paul Amayo.
+Supplementary material to Adrienne Winter's MSc Mechatronics Engineering dissertation with the African Robotics Unit at the University of Cape Town. Supervised by Robyn Verrinder, Professor Edward Boje and Doctor Paul Amayo.
 
 In the 3D printing files directory, all files are created by us except for the ArduCam housing which is provided by ArduCam.
 
