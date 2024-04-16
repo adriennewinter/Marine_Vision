@@ -9,20 +9,22 @@ The ROS workspace was developed in ROS1 Melodic and is written in C++. All code 
 * xsens_mti_driver - this package is provided by Xsens for use with the IMU.
 * ros_deep_learning - this package is provided by Nvidia and is adapted by us for use with the ArduCam CSI cameras on the Nvidia Jetson Nano.
 
-Marine_Vision/
-├── 3D Printing Files/
+<pre>
+ Marine_Vision/
+|── 3D Printing Files/ 
 │   ├── Box to Strut
-│   ├── Case for ArduCam Camera - _provided by ArduCam_
-│   ├── Dive Torch
-│   ├── GoPro Housing to Strut
-│   └── Pole to Strut
-└── ROS_Workspace/
-    ├── build
-    ├── devel
-    └── src/
-        ├── ezo_prs - _pressure sensor driver_
-        ├── launch - _launch files for managing sensor drivers_
-        ├── ros_deep_learning - _camera driver - provided by Nvidia_
-        ├── rosbag_manipulations - _helper package - splitting and joining rosbags_
-        ├── synchronize - _helper package - synchronize sensor data_
-        └── xsens_mti_driver - _IMU driver - provided by Xsens_
+│   ├── Case for ArduCam Camera - <i>provided by ArduCam</i>
+│   ├── Dive Torch 
+│   ├── GoPro Housing to Strut 
+│   └── Pole to Strut 
+└── ROS_Workspace/ 
+    ├── build 
+    ├── devel 
+    └── src/ 
+        ├── ezo_prs - <i>pressure sensor driver</i>
+        ├── launch - _launch files for managing sensor drivers_ 
+        ├── ros_deep_learning - <i>camera driver - provided by Nvidia</i>
+        ├── rosbag_manipulations - <i>helper package - splitting and joining rosbags</i>
+        ├── synchronize - <i>helper package - synchronize sensor data</i>
+        └── xsens_mti_driver - <i>IMU driver - provided by Xsens</i>
+</pre>       
