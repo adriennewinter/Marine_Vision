@@ -20,7 +20,7 @@ The ROS workspace was developed in ROS1 Melodic and is written in C++. All code 
     ├── devel 
     └── src/ 
         ├── ezo_prs - <i>pressure sensor driver</i>
-        ├── launch - _launch files for managing sensor drivers_ 
+        ├── launch - <i>launch files for managing sensor drivers</i>
         ├── ros_deep_learning - <i>camera driver - provided by Nvidia</i>
         ├── rosbag_manipulations - <i>helper package - splitting and joining rosbags</i>
         ├── synchronize - <i>helper package - synchronize sensor data</i>
