@@ -27,7 +27,7 @@
 #include <cstddef>
 #include <string>
 
-#include "ros/ros.h"
+#include <ros/ros.h>
 #include <rosbag/bag.h>
 #include <rosbag/view.h>
 #include <message_filters/subscriber.h>

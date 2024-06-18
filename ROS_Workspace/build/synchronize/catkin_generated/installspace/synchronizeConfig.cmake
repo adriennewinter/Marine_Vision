@@ -67,14 +67,14 @@ set(synchronize_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(synchronize_SOURCE_PREFIX /home/user/Documents/ROS_Workspace/src/synchronize)
-  set(synchronize_DEVEL_PREFIX /home/user/Documents/ROS_Workspace/devel)
+  set(synchronize_SOURCE_PREFIX /home/adie_wsl/code/Marine_Vision/ROS_Workspace/src/synchronize)
+  set(synchronize_DEVEL_PREFIX /home/adie_wsl/code/Marine_Vision/ROS_Workspace/devel)
   set(synchronize_INSTALL_PREFIX "")
   set(synchronize_PREFIX ${synchronize_DEVEL_PREFIX})
 else()
   set(synchronize_SOURCE_PREFIX "")
   set(synchronize_DEVEL_PREFIX "")
-  set(synchronize_INSTALL_PREFIX /home/user/Documents/ROS_Workspace/install)
+  set(synchronize_INSTALL_PREFIX /home/adie_wsl/code/Marine_Vision/ROS_Workspace/install)
   set(synchronize_PREFIX ${synchronize_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/user/Documents/ROS_Workspace/install/lib;/home/user/Documents/ROS_Workspace/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/adie_wsl/code/Marine_Vision/ROS_Workspace/install/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -211,7 +211,7 @@ foreach(depend ${depends})
   _unpack_libraries_with_build_configuration(synchronize_LIBRARIES ${synchronize_LIBRARIES})
 
   _list_append_unique(synchronize_LIBRARY_DIRS ${${synchronize_dep}_LIBRARY_DIRS})
-  list(APPEND synchronize_EXPORTED_TARGETS ${${synchronize_dep}_EXPORTED_TARGETS})
+  _list_append_deduplicate(synchronize_EXPORTED_TARGETS ${${synchronize_dep}_EXPORTED_TARGETS})
 endforeach()
 
 set(pkg_cfg_extras "")

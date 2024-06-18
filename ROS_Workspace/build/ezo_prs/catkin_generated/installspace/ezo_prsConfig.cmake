@@ -67,14 +67,14 @@ set(ezo_prs_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(ezo_prs_SOURCE_PREFIX /home/user/Documents/ROS_Workspace/src/ezo_prs)
-  set(ezo_prs_DEVEL_PREFIX /home/user/Documents/ROS_Workspace/devel)
+  set(ezo_prs_SOURCE_PREFIX /home/adie_wsl/code/Marine_Vision/ROS_Workspace/src/ezo_prs)
+  set(ezo_prs_DEVEL_PREFIX /home/adie_wsl/code/Marine_Vision/ROS_Workspace/devel)
   set(ezo_prs_INSTALL_PREFIX "")
   set(ezo_prs_PREFIX ${ezo_prs_DEVEL_PREFIX})
 else()
   set(ezo_prs_SOURCE_PREFIX "")
   set(ezo_prs_DEVEL_PREFIX "")
-  set(ezo_prs_INSTALL_PREFIX /home/user/Documents/ROS_Workspace/install)
+  set(ezo_prs_INSTALL_PREFIX /home/adie_wsl/code/Marine_Vision/ROS_Workspace/install)
   set(ezo_prs_PREFIX ${ezo_prs_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/user/Documents/ROS_Workspace/install/lib;/home/user/Documents/ROS_Workspace/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/adie_wsl/code/Marine_Vision/ROS_Workspace/install/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -211,7 +211,7 @@ foreach(depend ${depends})
   _unpack_libraries_with_build_configuration(ezo_prs_LIBRARIES ${ezo_prs_LIBRARIES})
 
   _list_append_unique(ezo_prs_LIBRARY_DIRS ${${ezo_prs_dep}_LIBRARY_DIRS})
-  list(APPEND ezo_prs_EXPORTED_TARGETS ${${ezo_prs_dep}_EXPORTED_TARGETS})
+  _list_append_deduplicate(ezo_prs_EXPORTED_TARGETS ${${ezo_prs_dep}_EXPORTED_TARGETS})
 endforeach()
 
 set(pkg_cfg_extras "")

@@ -1,8 +1,8 @@
-# Install script for directory: /home/user/Documents/ROS_Workspace/src/synchronize
+# Install script for directory: /home/adie_wsl/code/Marine_Vision/ROS_Workspace/src/synchronize
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/user/Documents/ROS_Workspace/install")
+  set(CMAKE_INSTALL_PREFIX "/home/adie_wsl/code/Marine_Vision/ROS_Workspace/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/user/Documents/ROS_Workspace/build/synchronize/catkin_generated/installspace/synchronize.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/catkin_generated/installspace/synchronize.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/synchronize/cmake" TYPE FILE FILES
-    "/home/user/Documents/ROS_Workspace/build/synchronize/catkin_generated/installspace/synchronizeConfig.cmake"
-    "/home/user/Documents/ROS_Workspace/build/synchronize/catkin_generated/installspace/synchronizeConfig-version.cmake"
+    "/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/catkin_generated/installspace/synchronizeConfig.cmake"
+    "/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/catkin_generated/installspace/synchronizeConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/synchronize" TYPE FILE FILES "/home/user/Documents/ROS_Workspace/src/synchronize/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/synchronize" TYPE FILE FILES "/home/adie_wsl/code/Marine_Vision/ROS_Workspace/src/synchronize/package.xml")
 endif()
 

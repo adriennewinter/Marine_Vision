@@ -1,8 +1,0 @@
-prefix=/home/user/Documents/ROS_Workspace/install
-
-Name: synchronizer
-Description: Description of synchronizer
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

@@ -1,5 +1,5 @@
 # generated from catkin/cmake/template/order_packages.context.py.in
-source_root_dir = '/home/user/Documents/MSc_ROS_Workspace/src'
-whitelisted_packages = 'ros_deep_learning'.split(';') if 'ros_deep_learning' != '' else []
+source_root_dir = '/home/adie_wsl/code/Marine_Vision/ROS_Workspace/src'
+whitelisted_packages = 'synchronize'.split(';') if 'synchronize' != '' else []
 blacklisted_packages = ''.split(';') if '' != '' else []
-underlay_workspaces = '/home/user/Documents/MSc_ROS_Workspace/devel;/home/user/Documents/ROS_Workspace/devel;/opt/ros/melodic'.split(';') if '/home/user/Documents/MSc_ROS_Workspace/devel;/home/user/Documents/ROS_Workspace/devel;/opt/ros/melodic' != '' else []
+underlay_workspaces = '/opt/ros/noetic'.split(';') if '/opt/ros/noetic' != '' else []

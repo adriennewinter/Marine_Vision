@@ -1,4 +1,4 @@
-prefix=/home/user/Documents/ROS_Workspace/install
+prefix=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/install
 
 Name: launch
 Description: Description of launch

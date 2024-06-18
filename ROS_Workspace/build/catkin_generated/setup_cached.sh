@@ -7,5 +7,9 @@
 # new environment variables
 
 # modified environment variables
-export PWD='/home/user/Documents/MSc_ROS_Workspace/build'
-export ROS_PACKAGE_PATH='/home/user/Documents/ROS_Workspace/src:/home/user/Documents/MSc_ROS_Workspace/src:/home/user/Documents/ROS_Workspace/src:/opt/ros/melodic/share'
+export CMAKE_PREFIX_PATH="/home/adie_wsl/code/Marine_Vision/ROS_Workspace/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/adie_wsl/code/Marine_Vision/ROS_Workspace/devel/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/home/adie_wsl/code/Marine_Vision/ROS_Workspace/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PWD='/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build'
+export ROSLISP_PACKAGE_DIRECTORIES='/home/adie_wsl/code/Marine_Vision/ROS_Workspace/devel/share/common-lisp'
+export ROS_PACKAGE_PATH="/home/adie_wsl/code/Marine_Vision/ROS_Workspace/src:$ROS_PACKAGE_PATH"

@@ -1,1 +1,10 @@
-/opt/ros/melodic/share/catkin/cmake/toplevel.cmake
+cmake_minimum_required(VERSION 3.0.2)
+set(CATKIN_TOPLEVEL TRUE)
+
+if(EXISTS "/opt/ros/noetic/share/catkin/cmake/toplevel.cmake")
+    include("/opt/ros/noetic/share/catkin/cmake/toplevel.cmake")
+elseif(EXISTS "/opt/ros/melodic/share/catkin/cmake/toplevel.cmake")
+    include("/opt/ros/melodic/share/catkin/cmake/toplevel.cmake")
+else()
+    message(FATAL_ERROR "Neither ROS Noetic nor ROS Melodic found. Please source the appropriate ROS environment.")
+endif()
