@@ -195,13 +195,7 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
 
   // Create empty rosbag to write synched messages into 
   rosbag::Bag synched_bag;
-  synched_bag.open(rosbag_folder_path+"/"+"Synched.bag", rosbag::bagmode::Write); 
-
-  // Set up message_filters subscribers to capture messages from the bag
-  // message_filters::Subscriber<sensor_msgs::Image> img0_sub(nh, cam0_topic, 10); 
-  // message_filters::Subscriber<sensor_msgs::Image> img1_sub(nh, cam1_topic, 10);
-  // message_filters::Subscriber<sensor_msgs::Imu> imu_sub(nh, imu_topic, 20); 
-  // message_filters::Subscriber<sensor_msgs::FluidPressure> prs_sub(nh, prs_topic, 10); 
+  synched_bag.open(rosbag_folder_path+"/"+"Synched.bag", rosbag::bagmode::Write);  
 
   // Set up public_simple_filters for message callbacks
   PublicSimpleFilter<sensor_msgs::Image> img0_filter;
@@ -223,7 +217,7 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
   imu_filter.registerCallback(imuBufferCallback);
 
   // Iterate through all messages on all topics in the bag and send them to their callbacks
-  ROS_INFO("Writing to synched bag file. This will take a few minutes...");
+  ROS_INFO("Writing to synched bag file. This may take a few minutes...");
   BOOST_FOREACH(rosbag::MessageInstance const msg, rosbagView)
   {
     if (msg.getTopic() == cam0_topic)

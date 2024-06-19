@@ -67,7 +67,6 @@ void SynchCallback(const sensor_msgs::Image::ConstPtr& img0_synch_msg, const sen
 }
 
 
-
 void imuBufferCallback(const sensor_msgs::Imu::ConstPtr& imu_msg)
 // Add all IMU messages to a buffer (deque)
 {
@@ -133,32 +132,28 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
   rosbag::Bag synched_bag;
   synched_bag.open(rosbag_folder_path+"/"+"StereoInertialSynched.bag", rosbag::bagmode::Write); 
 
-  // Set up message_filters subscribers to capture messages from the bag
-  message_filters::Subscriber<sensor_msgs::Image> img0_sub(nh, cam0_topic, 10); 
-  message_filters::Subscriber<sensor_msgs::Image> img1_sub(nh, cam1_topic, 10);
-  message_filters::Subscriber<sensor_msgs::Imu> imu_sub(nh, imu_topic, 20); 
-
   // Set up public_simple_filters for message callbacks
-  PublicSimpleFilter<sensor_msgs::Image> img_filter;
+  PublicSimpleFilter<sensor_msgs::Image> img0_filter;
+  PublicSimpleFilter<sensor_msgs::Image> img1_filter;
   PublicSimpleFilter<sensor_msgs::Imu> imu_filter;
   
   // Create Approximate Time Synchronizer
   typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image, sensor_msgs::Imu> approxTimePolicy;
-  message_filters::Synchronizer<approxTimePolicy> sync(approxTimePolicy(100), img0_sub, img1_sub, imu_sub);
+  message_filters::Synchronizer<approxTimePolicy> sync(approxTimePolicy(100), img0_filter, img1_filter, imu_filter);
   sync.registerCallback(boost::bind(&SynchCallback, _1, _2, _3));
 
   // Register the IMU Buffer Callback
-  imu_sub.registerCallback(imuBufferCallback);
+  imu_filter.registerCallback(imuBufferCallback);
 
   // Iterate through all messages on all topics in the bag and send them to their callbacks
-  cout << "Writing to synched bag file. This will take a few minutes..." << endl;
+  cout << "Writing to synched bag file. This may take a few minutes..." << endl;
   BOOST_FOREACH(rosbag::MessageInstance const msg, rosbagView)
   {
     if (msg.getTopic() == cam0_topic)
     {
       sensor_msgs::Image::ConstPtr img0 = msg.instantiate<sensor_msgs::Image>();
       if (img0 != NULL)
-        img_filter.publicSignalMessage(img0); // call the SynchCallback
+        img0_filter.publicSignalMessage(img0); // call the SynchCallback
         i += 1;
     }
 
@@ -166,7 +161,7 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
     {
       sensor_msgs::Image::ConstPtr img1 = msg.instantiate<sensor_msgs::Image>();
       if (img1 != NULL)
-        img_filter.publicSignalMessage(img1); // call the SynchCallback
+        img1_filter.publicSignalMessage(img1); // call the SynchCallback
         j += 1;
     }
 
@@ -179,16 +174,6 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
     }
 
     writeToBag(synched_bag); // write to rosbag (disk) and empty the deques as callbacks are made to save RAM space
-  }
-
-  // Write any remaining IMU messages to bag after all synched messages are written
-  if(SynchedMsgsBuffer.empty() && synch_cnt!=0)
-  {
-    while(!imuBuffer.empty())
-    {
-      synched_bag.write(imu_topic, imuBuffer.front().header.stamp, imuBuffer.front());
-      imuBuffer.pop_front();
-    }
   }
 
   unsynched_bag.close();

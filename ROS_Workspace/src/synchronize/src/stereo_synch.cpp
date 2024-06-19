@@ -88,27 +88,24 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
   rosbag::Bag synched_bag;
   synched_bag.open(rosbag_folder_path+"/"+"StereoSynched.bag", rosbag::bagmode::Write); 
 
-  // Set up message_filters subscribers to capture images from the bag
-  message_filters::Subscriber<sensor_msgs::Image> img0_sub(nh, cam0_topic, 10); 
-  message_filters::Subscriber<sensor_msgs::Image> img1_sub(nh, cam1_topic, 10);
-
   // Set up public_simple_filters for message callbacks
-  PublicSimpleFilter<sensor_msgs::Image> img_filter;
+  PublicSimpleFilter<sensor_msgs::Image> img0_filter;
+  PublicSimpleFilter<sensor_msgs::Image> img1_filter;
   
   // Use an approximate time synchronizer to synchronize image messages
   typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image> approxTimePolicy;
-  message_filters::Synchronizer<approxTimePolicy> sync(approxTimePolicy(100), img0_sub, img1_sub);
+  message_filters::Synchronizer<approxTimePolicy> sync(approxTimePolicy(100), img0_filter, img1_filter);
   sync.registerCallback(boost::bind(&synchFilterCallback, _1, _2));
 
   // Iterate through all messages on all topics in the bag and send them to the synchronizer callback
-  cout << "Writing to synched bag file. This will take a few minutes..." << endl;
+  cout << "Writing to synched bag file. This may take a few minutes..." << endl;
   BOOST_FOREACH(rosbag::MessageInstance const msg, rosbagView)
   {
     if (msg.getTopic() == cam0_topic)
     {
       sensor_msgs::Image::ConstPtr img0 = msg.instantiate<sensor_msgs::Image>();
       if (img0 != NULL)
-        img_filter.publicSignalMessage(img0); // call the synchFilterCallback
+        img0_filter.publicSignalMessage(img0); // call the synchFilterCallback
         i += 1;
     }
 
@@ -116,7 +113,7 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
     {
       sensor_msgs::Image::ConstPtr img1 = msg.instantiate<sensor_msgs::Image>();
       if (img1 != NULL)
-        img_filter.publicSignalMessage(img1); 
+        img1_filter.publicSignalMessage(img1); 
         j += 1;
     }
     writeToBag(synched_bag); // write to the rosbag (disk) and empty the image queues as callbacks are made to save RAM space
