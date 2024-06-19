@@ -45,7 +45,7 @@ struct stereo_inertial {
   sensor_msgs::Imu imu;
 };
 
-int synch_cnt, i, j, k = 0; 
+int i, k = 0; 
 std::deque<stereo_inertial> SynchedMsgsBuffer;
 std::deque<sensor_msgs::Imu> imuBuffer;
 
@@ -62,8 +62,6 @@ void SynchCallback(const sensor_msgs::Image::ConstPtr& img0_synch_msg, const sen
 
   // Insert the struct into the deque
   SynchedMsgsBuffer.push_back(SynchedMsgsStruct);
-
-  synch_cnt += 1;
 }
 
 
@@ -100,6 +98,7 @@ void writeToBag(rosbag::Bag& synched_bag)
         { 
           synched_bag.write(imu_topic, imuBuffer.front().header.stamp, imuBuffer.front());
           imuBuffer.pop_front();
+          k += 1;
         }
         imuBuffer.pop_front(); // remove the synched IMU message from the buffer so we don't add it twice
         
@@ -107,6 +106,7 @@ void writeToBag(rosbag::Bag& synched_bag)
         synched_bag.write(imu_topic, imu_synch_msg.header.stamp, imu_synch_msg);
         synched_bag.write(cam0_topic, img0_synch_msg.header.stamp, img0_synch_msg); 
         synched_bag.write(cam1_topic, img1_synch_msg.header.stamp, img1_synch_msg);
+        i += 1;
         break;
       }
     }
@@ -154,7 +154,6 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
       sensor_msgs::Image::ConstPtr img0 = msg.instantiate<sensor_msgs::Image>();
       if (img0 != NULL)
         img0_filter.publicSignalMessage(img0); // call the SynchCallback
-        i += 1;
     }
 
     if (msg.getTopic() == cam1_topic)
@@ -162,7 +161,6 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
       sensor_msgs::Image::ConstPtr img1 = msg.instantiate<sensor_msgs::Image>();
       if (img1 != NULL)
         img1_filter.publicSignalMessage(img1); // call the SynchCallback
-        j += 1;
     }
 
     if (msg.getTopic() == imu_topic)
@@ -170,7 +168,6 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
       sensor_msgs::Imu::ConstPtr imu = msg.instantiate<sensor_msgs::Imu>();
       if (imu != NULL)
         imu_filter.publicSignalMessage(imu); // call the SynchCallback and imuBufferCallback
-        k += 1;
     }
 
     writeToBag(synched_bag); // write to rosbag (disk) and empty the deques as callbacks are made to save RAM space
@@ -195,10 +192,11 @@ int main(int argc, char** argv)
   
   synchronizeBag(rosbag_folder_path+"/"+unsynched_bag_name, nh);
 
-  cout << "Total img0 callbacks = " << i << endl;
-  cout << "Total img1 callbacks = " << j << endl;
-  cout << "Total imu callbacks = " << k << endl;
-  cout << "Total synched messages = " << synch_cnt << endl;
+  cout << "---" << endl;
+  cout << "total messages written to bag:" << endl;
+  cout << "cameras = " << i << endl;
+  cout << "imu = " << k << endl;
+  cout << "---" << endl;
   cout << "Press Ctrl+C to kill the node." << endl;
 
   ros::spin();

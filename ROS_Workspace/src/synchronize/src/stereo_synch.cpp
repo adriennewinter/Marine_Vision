@@ -36,7 +36,7 @@ std::string cam0_topic;
 std::string cam1_topic;
 
 std::queue<sensor_msgs::Image> img0_queue, img1_queue;
-int synchs_cnt, i, j = 0; 
+int i = 0; 
 
 
 //-------------------------FUNCTIONS-------------------------------------------------------
@@ -45,8 +45,6 @@ void synchFilterCallback(const sensor_msgs::Image::ConstPtr& img0_msg, const sen
 { 
   img0_queue.push(*img0_msg);
   img1_queue.push(*img1_msg);
-
-  synchs_cnt += 1;
 }
 
 
@@ -67,6 +65,7 @@ void writeToBag(rosbag::Bag& synched_bag)
     // Write a synched pair of messages to a rosbag
     synched_bag.write(cam0_topic, img0_msg.header.stamp, img0_msg); 
     synched_bag.write(cam1_topic, img1_msg.header.stamp, img1_msg);
+    i += 1;
   }
 }
 
@@ -106,7 +105,6 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
       sensor_msgs::Image::ConstPtr img0 = msg.instantiate<sensor_msgs::Image>();
       if (img0 != NULL)
         img0_filter.publicSignalMessage(img0); // call the synchFilterCallback
-        i += 1;
     }
 
     if (msg.getTopic() == cam1_topic)
@@ -114,7 +112,6 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
       sensor_msgs::Image::ConstPtr img1 = msg.instantiate<sensor_msgs::Image>();
       if (img1 != NULL)
         img1_filter.publicSignalMessage(img1); 
-        j += 1;
     }
     writeToBag(synched_bag); // write to the rosbag (disk) and empty the image queues as callbacks are made to save RAM space
   }
@@ -139,9 +136,7 @@ int main(int argc, char** argv)
 
   synchronizeBag(rosbag_folder_path+"/"+unsynched_bag_name, nh);
 
-  cout << "Total img0 callbacks = " << i << endl;
-  cout << "Total img1 callbacks = " << j << endl;
-  cout << "Total synched messages = " << synchs_cnt << endl;
+  cout << "Total synched camera messages written to bag = " << i << endl;
   cout << "Press Ctrl+C to kill the node." << endl;
 
   ros::spin(); 
