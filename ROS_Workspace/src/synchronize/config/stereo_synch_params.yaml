@@ -1,6 +1,6 @@
 # Stereo Synchronize Node Parameters
 
-rosbagFolderPath: "/mnt/c/Users/uctsh/OneDrive - University of Cape Town/Documents/MASTERS/EXPERIMENTAL WORK/Dataset Creation/IMT Ship Hull Vinyl/Calibration/stereo in-air" # /path/to/folder
-unsynchedBagName: "stereo_in_air_calib.bag" # bagName.bag
+rosbag_folder_path: "/mnt/c/Users/uctsh/OneDrive - University of Cape Town/Documents/MASTERS/EXPERIMENTAL WORK/Dataset Creation/IMT Ship Hull Vinyl/Calibration/stereo in-air" # /path/to/folder
+unsynched_bag_name: "stereo_in_air_calib.bag" # bagName.bag
 cam0_topic: "/video_source_0/raw"
 cam1_topic: "/video_source_1/raw"

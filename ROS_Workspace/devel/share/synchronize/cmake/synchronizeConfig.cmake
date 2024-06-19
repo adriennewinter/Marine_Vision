@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(synchronize_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT " " STREQUAL " ")
+if(NOT "/home/adie_wsl/code/Marine_Vision/ROS_Workspace/src/synchronize/include " STREQUAL " ")
   set(synchronize_INCLUDE_DIRS "")
-  set(_include_dirs "")
+  set(_include_dirs "/home/adie_wsl/code/Marine_Vision/ROS_Workspace/src/synchronize/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")

@@ -10,12 +10,6 @@
 // Note that some messages may be dropped due to sensor streams starting at different times at the
 // beginning of the bag recording.
 //
-// Installation and Usage:
-// Save this 'synchronize' package to your ROS workspace src folder and build it with catkin.
-//
-// You may have to remove the "protected:" above the signalMessage function in simple_filter.h
-// $ sudo gedit /opt/ros/melodic/include/message_filters/simple_filter.h
-//
 // Edit the params.yaml file in the config folder before calling the launch file for the node.
 // $ roslaunch synchronize synchronize_node.launch
 // -----------------------------------------------------------------------------------------
@@ -34,16 +28,17 @@
 #include <message_filters/synchronizer.h>
 #include <message_filters/sync_policies/approximate_time.h>
 #include <message_filters/simple_filter.h>
-#include <sensor_msgs/CompressedImage.h> // compressed camera image messages
 #include <sensor_msgs/Image.h> // camera image messages
 #include <sensor_msgs/Imu.h> // IMU messages
 #include <sensor_msgs/FluidPressure.h> // pressure sensor messages
- 
+
+#include "synchronize/public_simple_filter.h"
+
 using namespace std;
 
 //-------------------------GLOBAL VARIABLES-----------------------------------------------------
-std::string rosbagFolderPath;
-std::string unsynchedBagName;
+std::string rosbag_folder_path;
+std::string unsynched_bag_name;
 std::string cam0_topic;
 std::string cam1_topic;
 std::string imu_topic;
@@ -200,26 +195,32 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
 
   // Create empty rosbag to write synched messages into 
   rosbag::Bag synched_bag;
-  synched_bag.open(rosbagFolderPath+"/"+"Synched.bag", rosbag::bagmode::Write); 
+  synched_bag.open(rosbag_folder_path+"/"+"Synched.bag", rosbag::bagmode::Write); 
 
   // Set up message_filters subscribers to capture messages from the bag
-  message_filters::Subscriber<sensor_msgs::Image> img0_sub(nh, cam0_topic, 10); 
-  message_filters::Subscriber<sensor_msgs::Image> img1_sub(nh, cam1_topic, 10);
-  message_filters::Subscriber<sensor_msgs::Imu> imu_sub(nh, imu_topic, 20); 
-  message_filters::Subscriber<sensor_msgs::FluidPressure> prs_sub(nh, prs_topic, 10); 
+  // message_filters::Subscriber<sensor_msgs::Image> img0_sub(nh, cam0_topic, 10); 
+  // message_filters::Subscriber<sensor_msgs::Image> img1_sub(nh, cam1_topic, 10);
+  // message_filters::Subscriber<sensor_msgs::Imu> imu_sub(nh, imu_topic, 20); 
+  // message_filters::Subscriber<sensor_msgs::FluidPressure> prs_sub(nh, prs_topic, 10); 
+
+  // Set up public_simple_filters for message callbacks
+  PublicSimpleFilter<sensor_msgs::Image> img0_filter;
+  PublicSimpleFilter<sensor_msgs::Image> img1_filter;
+  PublicSimpleFilter<sensor_msgs::Imu> imu_filter;
+  PublicSimpleFilter<sensor_msgs::FluidPressure> prs_filter;
 
   // Create Approximate Time Synchronizer 1 (pressure sensor and cameras)
   typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image, sensor_msgs::FluidPressure> approxTimePolicy1; 
-  message_filters::Synchronizer<approxTimePolicy1> sync1(approxTimePolicy1(100), img0_sub, img1_sub, prs_sub);
+  message_filters::Synchronizer<approxTimePolicy1> sync1(approxTimePolicy1(100), img0_filter, img1_filter, prs_filter);
   sync1.registerCallback(boost::bind(&Synch1Callback, _1, _2, _3)); 
  
   // Create Approximate Time Synchronizer 2 (cameras and IMU)
   typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image, sensor_msgs::Imu> approxTimePolicy2; 
-  message_filters::Synchronizer<approxTimePolicy2> sync2(approxTimePolicy2(100), img0_sub, img1_sub, imu_sub);
+  message_filters::Synchronizer<approxTimePolicy2> sync2(approxTimePolicy2(100), img0_filter, img1_filter, imu_filter);
   sync2.registerCallback(boost::bind(&Synch2Callback, _1, _2, _3));
 
   // Register the IMU Buffer Callback
-  imu_sub.registerCallback(imuBufferCallback);
+  imu_filter.registerCallback(imuBufferCallback);
 
   // Iterate through all messages on all topics in the bag and send them to their callbacks
   ROS_INFO("Writing to synched bag file. This will take a few minutes...");
@@ -229,25 +230,25 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
     {
       sensor_msgs::Image::ConstPtr img0 = msg.instantiate<sensor_msgs::Image>();
       if (img0 != NULL)
-        img0_sub.signalMessage(img0); // call the Synch1Callback and Synch2Callback
+        img0_filter.publicSignalMessage(img0); // call the Synch1Callback and Synch2Callback
     }
     if (msg.getTopic() == cam1_topic)
     {
       sensor_msgs::Image::ConstPtr img1 = msg.instantiate<sensor_msgs::Image>();
       if (img1 != NULL)
-        img1_sub.signalMessage(img1); // call the Synch1Callback and Synch2Callback
+        img1_filter.publicSignalMessage(img1); // call the Synch1Callback and Synch2Callback
     }
     if (msg.getTopic() == imu_topic)
     {
       sensor_msgs::Imu::ConstPtr imu = msg.instantiate<sensor_msgs::Imu>();
       if (imu != NULL)
-        imu_sub.signalMessage(imu); // call the Synch2Callback and imuBufferCallback
+        imu_filter.publicSignalMessage(imu); // call the Synch2Callback and imuBufferCallback
     }
     if (msg.getTopic() == prs_topic)
     {
       sensor_msgs::FluidPressure::ConstPtr prs = msg.instantiate<sensor_msgs::FluidPressure>();
       if (prs != NULL)
-        prs_sub.signalMessage(prs); // call the Synch1Callback
+        prs_filter.publicSignalMessage(prs); // call the Synch1Callback
     }
     writeToBag(synched_bag); // write to rosbag (disk) and empty the deques as callbacks are made to save RAM space
   }
@@ -265,14 +266,14 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "synchronize_node");
   ros::NodeHandle nh;
 
-  nh.getParam("rosbagFolderPath", rosbagFolderPath);
-  nh.getParam("unsynchedBagName", unsynchedBagName);
+  nh.getParam("rosbag_folder_path", rosbag_folder_path);
+  nh.getParam("unsynched_bag_name", unsynched_bag_name);
   nh.getParam("cam0_topic", cam0_topic);
   nh.getParam("cam1_topic", cam1_topic);
   nh.getParam("imu_topic", imu_topic);
   nh.getParam("prs_topic", prs_topic);
 
-  synchronizeBag(rosbagFolderPath+"/"+unsynchedBagName, nh);
+  synchronizeBag(rosbag_folder_path+"/"+unsynched_bag_name, nh);
 
   ROS_INFO("Pressure sensor and camera synched messages (Synch1Buffer) = %d", synch1_cnt);
   ROS_INFO("Camera and IMU synched messages (Synch2Buffer) = %d", synch2_cnt);

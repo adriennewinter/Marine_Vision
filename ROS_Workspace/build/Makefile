@@ -285,19 +285,6 @@ gtest/fast:
 .PHONY : gtest/fast
 
 #=============================================================================
-# Target rules for targets named stereo_inertial_synch_CompressedImage
-
-# Build rule for target.
-stereo_inertial_synch_CompressedImage: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 stereo_inertial_synch_CompressedImage
-.PHONY : stereo_inertial_synch_CompressedImage
-
-# fast build rule for target.
-stereo_inertial_synch_CompressedImage/fast:
-	$(MAKE) -f synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/build
-.PHONY : stereo_inertial_synch_CompressedImage/fast
-
-#=============================================================================
 # Target rules for targets named stereo_synch
 
 # Build rule for target.
@@ -309,19 +296,6 @@ stereo_synch: cmake_check_build_system
 stereo_synch/fast:
 	$(MAKE) -f synchronize/CMakeFiles/stereo_synch.dir/build.make synchronize/CMakeFiles/stereo_synch.dir/build
 .PHONY : stereo_synch/fast
-
-#=============================================================================
-# Target rules for targets named synchronize_all_CompressedImage
-
-# Build rule for target.
-synchronize_all_CompressedImage: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 synchronize_all_CompressedImage
-.PHONY : synchronize_all_CompressedImage
-
-# fast build rule for target.
-synchronize_all_CompressedImage/fast:
-	$(MAKE) -f synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/build.make synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/build
-.PHONY : synchronize_all_CompressedImage/fast
 
 #=============================================================================
 # Target rules for targets named synchronize_all
@@ -491,19 +465,6 @@ roscpp_generate_messages_nodejs: cmake_check_build_system
 roscpp_generate_messages_nodejs/fast:
 	$(MAKE) -f synchronize/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make synchronize/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
 .PHONY : roscpp_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named stereo_synch_CompressedImage
-
-# Build rule for target.
-stereo_synch_CompressedImage: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 stereo_synch_CompressedImage
-.PHONY : stereo_synch_CompressedImage
-
-# fast build rule for target.
-stereo_synch_CompressedImage/fast:
-	$(MAKE) -f synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/build
-.PHONY : stereo_synch_CompressedImage/fast
 
 #=============================================================================
 # Target rules for targets named std_msgs_generate_messages_eus
@@ -839,9 +800,7 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
-	@echo "... stereo_inertial_synch_CompressedImage"
 	@echo "... stereo_synch"
-	@echo "... synchronize_all_CompressedImage"
 	@echo "... synchronize_all"
 	@echo "... geometry_msgs_generate_messages_nodejs"
 	@echo "... geometry_msgs_generate_messages_lisp"
@@ -855,7 +814,6 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_eus"
 	@echo "... topic_tools_generate_messages_eus"
 	@echo "... roscpp_generate_messages_nodejs"
-	@echo "... stereo_synch_CompressedImage"
 	@echo "... std_msgs_generate_messages_eus"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... stereo_inertial_synch"

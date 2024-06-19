@@ -168,21 +168,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/rule:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f CMakeFiles/Makefile2 synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/rule
-.PHONY : synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/rule
-
-# Convenience name for target.
-stereo_inertial_synch_CompressedImage: synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/rule
-
-.PHONY : stereo_inertial_synch_CompressedImage
-
-# fast build rule for target.
-stereo_inertial_synch_CompressedImage/fast:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/build
-.PHONY : stereo_inertial_synch_CompressedImage/fast
-
-# Convenience name for target.
 synchronize/CMakeFiles/stereo_synch.dir/rule:
 	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f CMakeFiles/Makefile2 synchronize/CMakeFiles/stereo_synch.dir/rule
 .PHONY : synchronize/CMakeFiles/stereo_synch.dir/rule
@@ -196,21 +181,6 @@ stereo_synch: synchronize/CMakeFiles/stereo_synch.dir/rule
 stereo_synch/fast:
 	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/stereo_synch.dir/build.make synchronize/CMakeFiles/stereo_synch.dir/build
 .PHONY : stereo_synch/fast
-
-# Convenience name for target.
-synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/rule:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f CMakeFiles/Makefile2 synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/rule
-.PHONY : synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/rule
-
-# Convenience name for target.
-synchronize_all_CompressedImage: synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/rule
-
-.PHONY : synchronize_all_CompressedImage
-
-# fast build rule for target.
-synchronize_all_CompressedImage/fast:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/build.make synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/build
-.PHONY : synchronize_all_CompressedImage/fast
 
 # Convenience name for target.
 synchronize/CMakeFiles/synchronize_all.dir/rule:
@@ -406,21 +376,6 @@ roscpp_generate_messages_nodejs: synchronize/CMakeFiles/roscpp_generate_messages
 roscpp_generate_messages_nodejs/fast:
 	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make synchronize/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
 .PHONY : roscpp_generate_messages_nodejs/fast
-
-# Convenience name for target.
-synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/rule:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f CMakeFiles/Makefile2 synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/rule
-.PHONY : synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/rule
-
-# Convenience name for target.
-stereo_synch_CompressedImage: synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/rule
-
-.PHONY : stereo_synch_CompressedImage
-
-# fast build rule for target.
-stereo_synch_CompressedImage/fast:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/build
-.PHONY : stereo_synch_CompressedImage/fast
 
 # Convenience name for target.
 synchronize/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
@@ -809,33 +764,6 @@ src/stereo_inertial_synch.cpp.s:
 	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/stereo_inertial_synch.dir/build.make synchronize/CMakeFiles/stereo_inertial_synch.dir/src/stereo_inertial_synch.cpp.s
 .PHONY : src/stereo_inertial_synch.cpp.s
 
-src/stereo_inertial_synch_CompressedImage.o: src/stereo_inertial_synch_CompressedImage.cpp.o
-
-.PHONY : src/stereo_inertial_synch_CompressedImage.o
-
-# target to build an object file
-src/stereo_inertial_synch_CompressedImage.cpp.o:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/src/stereo_inertial_synch_CompressedImage.cpp.o
-.PHONY : src/stereo_inertial_synch_CompressedImage.cpp.o
-
-src/stereo_inertial_synch_CompressedImage.i: src/stereo_inertial_synch_CompressedImage.cpp.i
-
-.PHONY : src/stereo_inertial_synch_CompressedImage.i
-
-# target to preprocess a source file
-src/stereo_inertial_synch_CompressedImage.cpp.i:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/src/stereo_inertial_synch_CompressedImage.cpp.i
-.PHONY : src/stereo_inertial_synch_CompressedImage.cpp.i
-
-src/stereo_inertial_synch_CompressedImage.s: src/stereo_inertial_synch_CompressedImage.cpp.s
-
-.PHONY : src/stereo_inertial_synch_CompressedImage.s
-
-# target to generate assembly for a file
-src/stereo_inertial_synch_CompressedImage.cpp.s:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/src/stereo_inertial_synch_CompressedImage.cpp.s
-.PHONY : src/stereo_inertial_synch_CompressedImage.cpp.s
-
 src/stereo_synch.o: src/stereo_synch.cpp.o
 
 .PHONY : src/stereo_synch.o
@@ -862,33 +790,6 @@ src/stereo_synch.s: src/stereo_synch.cpp.s
 src/stereo_synch.cpp.s:
 	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/stereo_synch.dir/build.make synchronize/CMakeFiles/stereo_synch.dir/src/stereo_synch.cpp.s
 .PHONY : src/stereo_synch.cpp.s
-
-src/stereo_synch_CompressedImage.o: src/stereo_synch_CompressedImage.cpp.o
-
-.PHONY : src/stereo_synch_CompressedImage.o
-
-# target to build an object file
-src/stereo_synch_CompressedImage.cpp.o:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/src/stereo_synch_CompressedImage.cpp.o
-.PHONY : src/stereo_synch_CompressedImage.cpp.o
-
-src/stereo_synch_CompressedImage.i: src/stereo_synch_CompressedImage.cpp.i
-
-.PHONY : src/stereo_synch_CompressedImage.i
-
-# target to preprocess a source file
-src/stereo_synch_CompressedImage.cpp.i:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/src/stereo_synch_CompressedImage.cpp.i
-.PHONY : src/stereo_synch_CompressedImage.cpp.i
-
-src/stereo_synch_CompressedImage.s: src/stereo_synch_CompressedImage.cpp.s
-
-.PHONY : src/stereo_synch_CompressedImage.s
-
-# target to generate assembly for a file
-src/stereo_synch_CompressedImage.cpp.s:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/src/stereo_synch_CompressedImage.cpp.s
-.PHONY : src/stereo_synch_CompressedImage.cpp.s
 
 src/synchronize_all.o: src/synchronize_all.cpp.o
 
@@ -917,33 +818,6 @@ src/synchronize_all.cpp.s:
 	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/synchronize_all.dir/build.make synchronize/CMakeFiles/synchronize_all.dir/src/synchronize_all.cpp.s
 .PHONY : src/synchronize_all.cpp.s
 
-src/synchronize_all_CompressedImage.o: src/synchronize_all_CompressedImage.cpp.o
-
-.PHONY : src/synchronize_all_CompressedImage.o
-
-# target to build an object file
-src/synchronize_all_CompressedImage.cpp.o:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/build.make synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/src/synchronize_all_CompressedImage.cpp.o
-.PHONY : src/synchronize_all_CompressedImage.cpp.o
-
-src/synchronize_all_CompressedImage.i: src/synchronize_all_CompressedImage.cpp.i
-
-.PHONY : src/synchronize_all_CompressedImage.i
-
-# target to preprocess a source file
-src/synchronize_all_CompressedImage.cpp.i:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/build.make synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/src/synchronize_all_CompressedImage.cpp.i
-.PHONY : src/synchronize_all_CompressedImage.cpp.i
-
-src/synchronize_all_CompressedImage.s: src/synchronize_all_CompressedImage.cpp.s
-
-.PHONY : src/synchronize_all_CompressedImage.s
-
-# target to generate assembly for a file
-src/synchronize_all_CompressedImage.cpp.s:
-	cd /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build && $(MAKE) -f synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/build.make synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/src/synchronize_all_CompressedImage.cpp.s
-.PHONY : src/synchronize_all_CompressedImage.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -953,9 +827,7 @@ help:
 	@echo "... install/strip"
 	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... stereo_inertial_synch_CompressedImage"
 	@echo "... stereo_synch"
-	@echo "... synchronize_all_CompressedImage"
 	@echo "... synchronize_all"
 	@echo "... geometry_msgs_generate_messages_nodejs"
 	@echo "... geometry_msgs_generate_messages_lisp"
@@ -971,7 +843,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... topic_tools_generate_messages_eus"
 	@echo "... roscpp_generate_messages_nodejs"
-	@echo "... stereo_synch_CompressedImage"
 	@echo "... std_msgs_generate_messages_eus"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... stereo_inertial_synch"
@@ -1001,21 +872,12 @@ help:
 	@echo "... src/stereo_inertial_synch.o"
 	@echo "... src/stereo_inertial_synch.i"
 	@echo "... src/stereo_inertial_synch.s"
-	@echo "... src/stereo_inertial_synch_CompressedImage.o"
-	@echo "... src/stereo_inertial_synch_CompressedImage.i"
-	@echo "... src/stereo_inertial_synch_CompressedImage.s"
 	@echo "... src/stereo_synch.o"
 	@echo "... src/stereo_synch.i"
 	@echo "... src/stereo_synch.s"
-	@echo "... src/stereo_synch_CompressedImage.o"
-	@echo "... src/stereo_synch_CompressedImage.i"
-	@echo "... src/stereo_synch_CompressedImage.s"
 	@echo "... src/synchronize_all.o"
 	@echo "... src/synchronize_all.i"
 	@echo "... src/synchronize_all.s"
-	@echo "... src/synchronize_all_CompressedImage.o"
-	@echo "... src/synchronize_all_CompressedImage.i"
-	@echo "... src/synchronize_all_CompressedImage.s"
 .PHONY : help
 
 

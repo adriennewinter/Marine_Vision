@@ -1,7 +1,0 @@
-# Synchronize Node Parameters
-
-rosbagFolderPath: "/mnt/f/AFRL_Underwater_Stereo_Inertial_Pressure/Cemetery" # /path/to/folder
-unsynchedBagName: "cemetery_loop_002_reindex.bag" # bagName.bag
-cam0_topic: "/cam_fl/image_raw/compressed"
-cam1_topic: "/cam_fr/image_raw/compressed"
-imu_topic: "/imu/imu"

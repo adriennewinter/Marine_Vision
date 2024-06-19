@@ -1,2 +1,2 @@
 ezo_prs:launch:ros_deep_learning:rosbag_manipulations:synchronize:xsens_mti_driver
--DCATKIN_WHITELIST_PACKAGES=synchronize -DCATKIN_DEVEL_PREFIX=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/devel -DCMAKE_INSTALL_PREFIX=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/install -G Unix Makefiles
+-DCATKIN_DEVEL_PREFIX=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/devel -DCMAKE_INSTALL_PREFIX=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/install -G Unix Makefiles
