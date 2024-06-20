@@ -7,9 +7,6 @@
 // The approximate time synchronizer filter is used from the ROS message_filters package together
 // with additional buffers to achieve this.
 //
-// You may have to remove the "protected:" above the signalMessage function in simple_filter.h
-// $ sudo gedit /opt/ros/melodic/include/message_filters/simple_filter.h
-//
 // Edit the params.yaml file in the config folder before calling the launch file for the node.
 // $ roslaunch synchronize stereo_inertial_synch.launch
 // -----------------------------------------------------------------------------------------
@@ -30,12 +27,14 @@
 #include <message_filters/simple_filter.h>
 #include <sensor_msgs/Image.h> // camera image messages
 #include <sensor_msgs/Imu.h> // IMU messages
- 
+
+#include "synchronize/public_simple_filter.h"
+
 using namespace std;
 
 //-------------------------GLOBAL VARIABLES-----------------------------------------------------
-std::string rosbagFolderPath;
-std::string unsynchedBagName;
+std::string rosbag_folder_path;
+std::string unsynched_bag_name;
 std::string cam0_topic;
 std::string cam1_topic;
 std::string imu_topic;
@@ -46,7 +45,7 @@ struct stereo_inertial {
   sensor_msgs::Imu imu;
 };
 
-int synch_cnt, i, j, k = 0; 
+int i, k = 0; 
 std::deque<stereo_inertial> SynchedMsgsBuffer;
 std::deque<sensor_msgs::Imu> imuBuffer;
 
@@ -63,10 +62,7 @@ void SynchCallback(const sensor_msgs::Image::ConstPtr& img0_synch_msg, const sen
 
   // Insert the struct into the deque
   SynchedMsgsBuffer.push_back(SynchedMsgsStruct);
-
-  synch_cnt += 1;
 }
-
 
 
 void imuBufferCallback(const sensor_msgs::Imu::ConstPtr& imu_msg)
@@ -102,6 +98,7 @@ void writeToBag(rosbag::Bag& synched_bag)
         { 
           synched_bag.write(imu_topic, imuBuffer.front().header.stamp, imuBuffer.front());
           imuBuffer.pop_front();
+          k += 1;
         }
         imuBuffer.pop_front(); // remove the synched IMU message from the buffer so we don't add it twice
         
@@ -109,6 +106,7 @@ void writeToBag(rosbag::Bag& synched_bag)
         synched_bag.write(imu_topic, imu_synch_msg.header.stamp, imu_synch_msg);
         synched_bag.write(cam0_topic, img0_synch_msg.header.stamp, img0_synch_msg); 
         synched_bag.write(cam1_topic, img1_synch_msg.header.stamp, img1_synch_msg);
+        i += 1;
         break;
       }
     }
@@ -132,62 +130,47 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
 
   // Create empty rosbag to write synched messages into 
   rosbag::Bag synched_bag;
-  synched_bag.open(rosbagFolderPath+"/"+"StereoInertialSynched.bag", rosbag::bagmode::Write); 
+  synched_bag.open(rosbag_folder_path+"/"+"StereoInertialSynched.bag", rosbag::bagmode::Write); 
 
-  // Set up message_filters subscribers to capture messages from the bag
-  message_filters::Subscriber<sensor_msgs::Image> img0_sub(nh, cam0_topic, 10); 
-  message_filters::Subscriber<sensor_msgs::Image> img1_sub(nh, cam1_topic, 10);
-  message_filters::Subscriber<sensor_msgs::Imu> imu_sub(nh, imu_topic, 20); 
+  // Set up public_simple_filters for message callbacks
+  PublicSimpleFilter<sensor_msgs::Image> img0_filter;
+  PublicSimpleFilter<sensor_msgs::Image> img1_filter;
+  PublicSimpleFilter<sensor_msgs::Imu> imu_filter;
   
   // Create Approximate Time Synchronizer
   typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image, sensor_msgs::Imu> approxTimePolicy;
-  //ros::Duration maxInterval = ros::Duration(0.5,0); // (seconds, nanoseconds)
-  //message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image, sensor_msgs::Imu>::setMaxIntervalDuration(maxInterval); // set maximum synchronization timestamp difference 
-  message_filters::Synchronizer<approxTimePolicy> sync(approxTimePolicy(100), img0_sub, img1_sub, imu_sub);
+  message_filters::Synchronizer<approxTimePolicy> sync(approxTimePolicy(100), img0_filter, img1_filter, imu_filter);
   sync.registerCallback(boost::bind(&SynchCallback, _1, _2, _3));
 
   // Register the IMU Buffer Callback
-  imu_sub.registerCallback(imuBufferCallback);
+  imu_filter.registerCallback(imuBufferCallback);
 
   // Iterate through all messages on all topics in the bag and send them to their callbacks
-  cout << "Writing to synched bag file. This will take a few minutes..." << endl;
+  cout << "Writing to synched bag file. This may take a few minutes..." << endl;
   BOOST_FOREACH(rosbag::MessageInstance const msg, rosbagView)
   {
     if (msg.getTopic() == cam0_topic)
     {
       sensor_msgs::Image::ConstPtr img0 = msg.instantiate<sensor_msgs::Image>();
       if (img0 != NULL)
-        img0_sub.signalMessage(img0); // call the SynchCallback
-        i += 1;
+        img0_filter.publicSignalMessage(img0); // call the SynchCallback
     }
 
     if (msg.getTopic() == cam1_topic)
     {
       sensor_msgs::Image::ConstPtr img1 = msg.instantiate<sensor_msgs::Image>();
       if (img1 != NULL)
-        img1_sub.signalMessage(img1); // call the SynchCallback
-        j += 1;
+        img1_filter.publicSignalMessage(img1); // call the SynchCallback
     }
 
     if (msg.getTopic() == imu_topic)
     {
       sensor_msgs::Imu::ConstPtr imu = msg.instantiate<sensor_msgs::Imu>();
       if (imu != NULL)
-        imu_sub.signalMessage(imu); // call the SynchCallback and imuBufferCallback
-        k += 1;
+        imu_filter.publicSignalMessage(imu); // call the SynchCallback and imuBufferCallback
     }
 
     writeToBag(synched_bag); // write to rosbag (disk) and empty the deques as callbacks are made to save RAM space
-  }
-
-  // Write any remaining IMU messages to bag after all synched messages are written
-  if(SynchedMsgsBuffer.empty() && synch_cnt!=0)
-  {
-    while(!imuBuffer.empty())
-    {
-      synched_bag.write(imu_topic, imuBuffer.front().header.stamp, imuBuffer.front());
-      imuBuffer.pop_front();
-    }
   }
 
   unsynched_bag.close();
@@ -201,18 +184,19 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "stereo_inertial_synch");
   ros::NodeHandle nh;
   
-  nh.getParam("rosbagFolderPath", rosbagFolderPath);
-  nh.getParam("unsynchedBagName", unsynchedBagName);
+  nh.getParam("rosbag_folder_path", rosbag_folder_path);
+  nh.getParam("unsynched_bag_name", unsynched_bag_name);
   nh.getParam("cam0_topic", cam0_topic);
   nh.getParam("cam1_topic", cam1_topic);
   nh.getParam("imu_topic", imu_topic);
   
-  synchronizeBag(rosbagFolderPath+"/"+unsynchedBagName, nh);
+  synchronizeBag(rosbag_folder_path+"/"+unsynched_bag_name, nh);
 
-  cout << "Total img0 callbacks = " << i << endl;
-  cout << "Total img1 callbacks = " << j << endl;
-  cout << "Total imu callbacks = " << k << endl;
-  cout << "Total synched messages = " << synch_cnt << endl;
+  cout << "---" << endl;
+  cout << "total messages written to bag:" << endl;
+  cout << "cameras = " << i << endl;
+  cout << "imu = " << k << endl;
+  cout << "---" << endl;
   cout << "Press Ctrl+C to kill the node." << endl;
 
   ros::spin();

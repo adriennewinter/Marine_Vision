@@ -38,9 +38,7 @@
 /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/install/strip.dir
 /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/install.dir
 /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/list_install_components.dir
-/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir
 /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/stereo_synch.dir
-/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/synchronize_all_CompressedImage.dir
 /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/synchronize_all.dir
 /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir
 /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/geometry_msgs_generate_messages_lisp.dir
@@ -56,7 +54,6 @@
 /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/edit_cache.dir
 /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/topic_tools_generate_messages_eus.dir
 /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/roscpp_generate_messages_nodejs.dir
-/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/stereo_synch_CompressedImage.dir
 /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/std_msgs_generate_messages_eus.dir
 /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/std_msgs_generate_messages_lisp.dir
 /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/synchronize/CMakeFiles/stereo_inertial_synch.dir

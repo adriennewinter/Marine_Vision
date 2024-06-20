@@ -1,6 +1,0 @@
-# Stereo Synchronize Node Parameters
-
-rosbagFolderPath: "/mnt/c/Users/uctsh/OneDrive - University of Cape Town/Documents/MASTERS/Resources/Datasets/AFRL - Underwater Stereo Inertial Pressure - University of South Carolina/Bus" #path/to/folder
-unsynchedBagName: "bus_out_loop_w_cam_info-003_reindex.bag"
-cam0_topic: /cam_fl/image_raw/compressed 
-cam1_topic: /cam_fr/image_raw/compressed

@@ -1,0 +1,8 @@
+prefix=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/install
+
+Name: synchronize
+Description: Description of synchronize
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

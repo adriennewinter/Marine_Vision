@@ -3,6 +3,6 @@ prefix=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/devel
 Name: synchronize
 Description: Description of synchronize
 Version: 0.0.0
-Cflags: 
+Cflags: -I/home/adie_wsl/code/Marine_Vision/ROS_Workspace/src/synchronize/include
 Libs: -L${prefix}/lib 
 Requires: 

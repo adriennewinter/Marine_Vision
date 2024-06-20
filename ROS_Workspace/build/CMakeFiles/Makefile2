@@ -136,11 +136,8 @@ gtest/googletest/clean: gtest/googletest/CMakeFiles/gtest.dir/clean
 # Directory level rules for directory synchronize
 
 # Recursive "all" directory target.
-synchronize/all: synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/all
 synchronize/all: synchronize/CMakeFiles/stereo_synch.dir/all
-synchronize/all: synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/all
 synchronize/all: synchronize/CMakeFiles/synchronize_all.dir/all
-synchronize/all: synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/all
 synchronize/all: synchronize/CMakeFiles/stereo_inertial_synch.dir/all
 
 .PHONY : synchronize/all
@@ -151,9 +148,7 @@ synchronize/preinstall:
 .PHONY : synchronize/preinstall
 
 # Recursive "clean" directory target.
-synchronize/clean: synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/clean
 synchronize/clean: synchronize/CMakeFiles/stereo_synch.dir/clean
-synchronize/clean: synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/clean
 synchronize/clean: synchronize/CMakeFiles/synchronize_all.dir/clean
 synchronize/clean: synchronize/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/clean
 synchronize/clean: synchronize/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/clean
@@ -167,7 +162,6 @@ synchronize/clean: synchronize/CMakeFiles/rosgraph_msgs_generate_messages_lisp.d
 synchronize/clean: synchronize/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
 synchronize/clean: synchronize/CMakeFiles/topic_tools_generate_messages_eus.dir/clean
 synchronize/clean: synchronize/CMakeFiles/roscpp_generate_messages_nodejs.dir/clean
-synchronize/clean: synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/clean
 synchronize/clean: synchronize/CMakeFiles/std_msgs_generate_messages_eus.dir/clean
 synchronize/clean: synchronize/CMakeFiles/std_msgs_generate_messages_lisp.dir/clean
 synchronize/clean: synchronize/CMakeFiles/stereo_inertial_synch.dir/clean
@@ -440,40 +434,13 @@ gtest/googletest/CMakeFiles/gtest.dir/clean:
 .PHONY : gtest/googletest/CMakeFiles/gtest.dir/clean
 
 #=============================================================================
-# Target rules for target synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir
-
-# All Build rule for target.
-synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/all:
-	$(MAKE) -f synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/depend
-	$(MAKE) -f synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/CMakeFiles --progress-num=11,12 "Built target stereo_inertial_synch_CompressedImage"
-.PHONY : synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/all
-
-# Build rule for subdir invocation for target.
-synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/CMakeFiles 0
-.PHONY : synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/rule
-
-# Convenience name for target.
-stereo_inertial_synch_CompressedImage: synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/rule
-
-.PHONY : stereo_inertial_synch_CompressedImage
-
-# clean rule for target.
-synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/clean:
-	$(MAKE) -f synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/clean
-.PHONY : synchronize/CMakeFiles/stereo_inertial_synch_CompressedImage.dir/clean
-
-#=============================================================================
 # Target rules for target synchronize/CMakeFiles/stereo_synch.dir
 
 # All Build rule for target.
 synchronize/CMakeFiles/stereo_synch.dir/all:
 	$(MAKE) -f synchronize/CMakeFiles/stereo_synch.dir/build.make synchronize/CMakeFiles/stereo_synch.dir/depend
 	$(MAKE) -f synchronize/CMakeFiles/stereo_synch.dir/build.make synchronize/CMakeFiles/stereo_synch.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/CMakeFiles --progress-num=13,14 "Built target stereo_synch"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/CMakeFiles --progress-num=11,12 "Built target stereo_synch"
 .PHONY : synchronize/CMakeFiles/stereo_synch.dir/all
 
 # Build rule for subdir invocation for target.
@@ -494,40 +461,13 @@ synchronize/CMakeFiles/stereo_synch.dir/clean:
 .PHONY : synchronize/CMakeFiles/stereo_synch.dir/clean
 
 #=============================================================================
-# Target rules for target synchronize/CMakeFiles/synchronize_all_CompressedImage.dir
-
-# All Build rule for target.
-synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/all:
-	$(MAKE) -f synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/build.make synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/depend
-	$(MAKE) -f synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/build.make synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/CMakeFiles --progress-num=19,20 "Built target synchronize_all_CompressedImage"
-.PHONY : synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/all
-
-# Build rule for subdir invocation for target.
-synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/CMakeFiles 0
-.PHONY : synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/rule
-
-# Convenience name for target.
-synchronize_all_CompressedImage: synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/rule
-
-.PHONY : synchronize_all_CompressedImage
-
-# clean rule for target.
-synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/clean:
-	$(MAKE) -f synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/build.make synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/clean
-.PHONY : synchronize/CMakeFiles/synchronize_all_CompressedImage.dir/clean
-
-#=============================================================================
 # Target rules for target synchronize/CMakeFiles/synchronize_all.dir
 
 # All Build rule for target.
 synchronize/CMakeFiles/synchronize_all.dir/all:
 	$(MAKE) -f synchronize/CMakeFiles/synchronize_all.dir/build.make synchronize/CMakeFiles/synchronize_all.dir/depend
 	$(MAKE) -f synchronize/CMakeFiles/synchronize_all.dir/build.make synchronize/CMakeFiles/synchronize_all.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/CMakeFiles --progress-num=17,18 "Built target synchronize_all"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/CMakeFiles --progress-num=13,14 "Built target synchronize_all"
 .PHONY : synchronize/CMakeFiles/synchronize_all.dir/all
 
 # Build rule for subdir invocation for target.
@@ -870,33 +810,6 @@ roscpp_generate_messages_nodejs: synchronize/CMakeFiles/roscpp_generate_messages
 synchronize/CMakeFiles/roscpp_generate_messages_nodejs.dir/clean:
 	$(MAKE) -f synchronize/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make synchronize/CMakeFiles/roscpp_generate_messages_nodejs.dir/clean
 .PHONY : synchronize/CMakeFiles/roscpp_generate_messages_nodejs.dir/clean
-
-#=============================================================================
-# Target rules for target synchronize/CMakeFiles/stereo_synch_CompressedImage.dir
-
-# All Build rule for target.
-synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/all:
-	$(MAKE) -f synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/depend
-	$(MAKE) -f synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/CMakeFiles --progress-num=15,16 "Built target stereo_synch_CompressedImage"
-.PHONY : synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/all
-
-# Build rule for subdir invocation for target.
-synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/adie_wsl/code/Marine_Vision/ROS_Workspace/build/CMakeFiles 0
-.PHONY : synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/rule
-
-# Convenience name for target.
-stereo_synch_CompressedImage: synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/rule
-
-.PHONY : stereo_synch_CompressedImage
-
-# clean rule for target.
-synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/clean:
-	$(MAKE) -f synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/build.make synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/clean
-.PHONY : synchronize/CMakeFiles/stereo_synch_CompressedImage.dir/clean
 
 #=============================================================================
 # Target rules for target synchronize/CMakeFiles/std_msgs_generate_messages_eus.dir

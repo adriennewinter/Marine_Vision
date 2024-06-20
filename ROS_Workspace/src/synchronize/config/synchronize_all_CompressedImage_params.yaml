@@ -1,8 +1,0 @@
-# Synchronize Node Parameters
-
-rosbagFolderPath: "/mnt/f/AFRL_Underwater_Stereo_Inertial_Pressure/Cave" #path/to/folder
-unsynchedBagName: "cave_loop_w_cam_info.bag"
-cam0_topic: /slave1/image_raw/compressed 
-cam1_topic: /slave2/image_raw/compressed
-imu_topic: /imu/imu 
-prs_topic: /bar30/pressure 
