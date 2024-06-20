@@ -16,10 +16,6 @@ using namespace std;
 
 string cam0_topic = "/cam_fl/image_raw/compressed"; // cemetery
 string cam1_topic = "/cam_fr/image_raw/compressed";
-// string cam0_topic = "/slave1/image_raw/compressed"; // Bus
-// string cam1_topic = "/slave2/image_raw/compressed";
-// string cam0_topic = "/cam0_left/image_raw"; // ACFR
-// string cam1_topic = "/cam1_right/image_raw";
 string folder_path = "/mnt/f/AFRL_Underwater_Stereo_Inertial_Pressure/Cemetery/"; //  /full/path/to/folder/
 string joined_bag_name = "Cemetery_stereo_enhanced.bag"; // bag_name.bag (bag to be created)
 
