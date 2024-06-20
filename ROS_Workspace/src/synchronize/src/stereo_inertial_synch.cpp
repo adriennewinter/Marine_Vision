@@ -17,6 +17,8 @@
 #include <cstdio>
 #include <cstddef>
 #include <string>
+#include <cmath>
+#include <numeric>
 
 #include <ros/ros.h>
 #include <rosbag/bag.h>
@@ -29,6 +31,7 @@
 #include <sensor_msgs/Imu.h> // IMU messages
 
 #include "synchronize/public_simple_filter.h"
+#include "synchronize/synchronize.h"
 
 using namespace std;
 
@@ -48,6 +51,7 @@ struct stereo_inertial {
 int i, k = 0; 
 std::deque<stereo_inertial> SynchedMsgsBuffer;
 std::deque<sensor_msgs::Imu> imuBuffer;
+std::vector<int> stamp_diffs_imu, stamp_diffs_img1;
 
 //-------------------------CALLBACKS-------------------------------------------------------
 void SynchCallback(const sensor_msgs::Image::ConstPtr& img0_synch_msg, const sensor_msgs::Image::ConstPtr& img1_synch_msg, const sensor_msgs::Imu::ConstPtr& imu_synch_msg)
@@ -62,6 +66,12 @@ void SynchCallback(const sensor_msgs::Image::ConstPtr& img0_synch_msg, const sen
 
   // Insert the struct into the deque
   SynchedMsgsBuffer.push_back(SynchedMsgsStruct);
+
+  // Find timestamp differences with respect to img0 and add to respective vectors
+  int img1_diff = findStampDiffMsec(img0_synch_msg, img1_synch_msg);
+  int imu_diff = findStampDiffMsec(img0_synch_msg, imu_synch_msg);
+  stamp_diffs_img1.push_back(img1_diff);
+  stamp_diffs_imu.push_back(imu_diff);
 }
 
 
@@ -103,9 +113,9 @@ void writeToBag(rosbag::Bag& synched_bag)
         imuBuffer.pop_front(); // remove the synched IMU message from the buffer so we don't add it twice
         
         // Write the image-imu synched message to the rosbag
-        synched_bag.write(imu_topic, imu_synch_msg.header.stamp, imu_synch_msg);
+        synched_bag.write(imu_topic, img0_synch_msg.header.stamp, imu_synch_msg);
         synched_bag.write(cam0_topic, img0_synch_msg.header.stamp, img0_synch_msg); 
-        synched_bag.write(cam1_topic, img1_synch_msg.header.stamp, img1_synch_msg);
+        synched_bag.write(cam1_topic, img0_synch_msg.header.stamp, img1_synch_msg);
         i += 1;
         break;
       }
@@ -197,8 +207,12 @@ int main(int argc, char** argv)
   cout << "cameras = " << i << endl;
   cout << "imu = " << k << endl;
   cout << "---" << endl;
+  cout << "timestamp differences with respect to cam0:" << endl;
+  cout << "max [cam1, imu] = " << *max_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << ", " << *max_element(stamp_diffs_imu.begin(), stamp_diffs_imu.end()) << ", " << "msecs" << endl;
+  cout << "min [cam1, imu] = " << *min_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << ", " << *min_element(stamp_diffs_imu.begin(), stamp_diffs_imu.end()) << ", " << "msecs" << endl;
+  cout << "average [cam1, imu] = " << round(accumulate(stamp_diffs_img1.begin(), stamp_diffs_img1.end(), 0.0)/stamp_diffs_img1.size()) << ", " << round(accumulate(stamp_diffs_imu.begin(), stamp_diffs_imu.end(), 0.0)/stamp_diffs_imu.size()) << ", " << "msecs" << endl;
+  cout << "---" << endl;
   cout << "Press Ctrl+C to kill the node." << endl;
 
-  ros::spin();
   return 0;
 }

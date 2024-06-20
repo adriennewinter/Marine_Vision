@@ -1,7 +1,7 @@
 # Synchronize Node Parameters
 
-rosbag_folder_path: "/mnt/c/Users/uctsh/OneDrive - University of Cape Town/Documents/MASTERS/EXPERIMENTAL WORK/Calibration/Stereo Inertial Calibration/stereo inertial calibration 2" # /path/to/folder
-unsynched_bag_name: "Stereo_Inertial_Calibration_2.bag" # bagName.bag
-cam0_topic: "/video_source_0/raw"
-cam1_topic: "/video_source_1/raw"
-imu_topic: "/imu/data"
+rosbag_folder_path: "/mnt/c/Users/adiee/OneDrive - University of Cape Town/Documents/MASTERS/Experimental Work/Dataset Creation/Ship-Hull-Vinyl-Dataset/Data" #path/to/folder
+unsynched_bag_name: "ship_hull_vinyl_raw.bag"
+cam0_topic: /video_source_0/raw
+cam1_topic: /video_source_1/raw
+imu_topic: /imu/data

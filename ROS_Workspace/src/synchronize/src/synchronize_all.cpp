@@ -21,6 +21,7 @@
 #include <cstddef>
 #include <string>
 #include <numeric>
+#include <cmath>
 
 #include <ros/ros.h>
 #include <rosbag/bag.h>
@@ -34,6 +35,7 @@
 #include <sensor_msgs/FluidPressure.h> // pressure sensor messages
 
 #include "synchronize/public_simple_filter.h"
+#include "synchronize/synchronize.h"
 
 using namespace std;
 
@@ -56,7 +58,7 @@ int m, n, o = 0;
 std::deque<synched_struct> Synch1Buffer, Synch2Buffer; // a deque of structs
 std::deque<sensor_msgs::Imu> imuBuffer;
 std::deque<sensor_msgs::FluidPressure> prsBuffer;
-std::vector<float> stamp_diffs_imu, stamp_diffs_img1, stamp_diffs_prs;
+std::vector<int> stamp_diffs_imu, stamp_diffs_img1, stamp_diffs_prs;
 
 //-------------------------CALLBACKS------------------------------------------------------------
 void Synch1Callback(const sensor_msgs::Image::ConstPtr& img0_synch_msg, const sensor_msgs::Image::ConstPtr& img1_synch_msg, const sensor_msgs::FluidPressure::ConstPtr& prs_synch_msg)
@@ -72,15 +74,8 @@ void Synch1Callback(const sensor_msgs::Image::ConstPtr& img0_synch_msg, const se
   // Insert the struct into the deque
   Synch1Buffer.push_back(SynchedMsgsStruct);
 
-  // Find timestamp differences with respect to img0
-  float img0_stamp = img0_synch_msg->header.stamp.toSec();
-  float img1_stamp = img1_synch_msg->header.stamp.toSec();
-  float prs_stamp = prs_synch_msg->header.stamp.toSec();
-  float img1_diff = img0_stamp - img1_stamp;
-  float prs_diff = img0_stamp - prs_stamp;
-
-  // Add stamp diffs to respective vectors
-  stamp_diffs_img1.push_back(img1_diff);
+  // Find timestamp differences with respect to img0 and add to respective vectors
+  int prs_diff = findStampDiffMsec(img0_synch_msg, prs_synch_msg);
   stamp_diffs_prs.push_back(prs_diff);
 }
 
@@ -98,17 +93,11 @@ void Synch2Callback(const sensor_msgs::Image::ConstPtr& img0_synch_msg, const se
   // Insert the struct into the deque
   Synch2Buffer.push_back(SynchedMsgsStruct);
 
-  // Find timestamp differences with respect to img0
-  float img0_stamp = img0_synch_msg->header.stamp.toSec();
-  float img1_stamp = img1_synch_msg->header.stamp.toSec();
-  float imu_stamp = imu_synch_msg->header.stamp.toSec();
-  float img1_diff = img0_stamp - img1_stamp;
-  float imu_diff = img0_stamp - imu_stamp;
-
-  // Add stamp diffs to respective vectors
+  // Find timestamp differences with respect to img0 and add to respective vectors
+  int img1_diff = findStampDiffMsec(img0_synch_msg, img1_synch_msg);
+  int imu_diff = findStampDiffMsec(img0_synch_msg, imu_synch_msg);
   stamp_diffs_img1.push_back(img1_diff);
   stamp_diffs_imu.push_back(imu_diff);
-
 }
 
 
@@ -173,9 +162,9 @@ void writeToBag(rosbag::Bag& synched_bag)
             imuBuffer.pop_front(); // remove the IMU message that is the same as the Synch2Buffer so we don't add it to the rosbag twice
 
             // Write the Synch2Buffer messages to the rosbag (images and IMU)
-            synched_bag.write(imu_topic, imu_synch_msg_front.header.stamp, imu_synch_msg_front);
+            synched_bag.write(imu_topic, img0_synch2_front.header.stamp, imu_synch_msg_front);
             synched_bag.write(cam0_topic, img0_synch2_front.header.stamp, img0_synch2_front); 
-            synched_bag.write(cam1_topic, img1_synch2_front.header.stamp, img1_synch2_front);
+            synched_bag.write(cam1_topic, img0_synch2_front.header.stamp, img1_synch2_front);
             n += 1;
 
             // Update the front Synch2Buffer messages
@@ -186,7 +175,7 @@ void writeToBag(rosbag::Bag& synched_bag)
           }
           
           // Write the remaining pressure topic of the current Synch1Buffer message to the rosbag
-          synched_bag.write(prs_topic, prs_synch1_msg.header.stamp, prs_synch1_msg);
+          synched_bag.write(prs_topic, img0_synch2_front.header.stamp, prs_synch1_msg);
           Synch1Buffer.pop_front();
           m += 1;
           break; 
@@ -210,7 +199,7 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
   topics.push_back(imu_topic);
   topics.push_back(prs_topic);
   rosbag::View rosbagView(unsynched_bag, rosbag::TopicQuery(topics));
-  ROS_INFO("Opening unsynched bag file.");
+  cout << "Opening unsynched bag file." << endl;
 
   // Create empty rosbag to write synched messages into 
   rosbag::Bag synched_bag;
@@ -236,7 +225,7 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
   imu_filter.registerCallback(imuBufferCallback);
 
   // Iterate through all messages on all topics in the bag and send them to their callbacks
-  ROS_INFO("Writing to synched bag file. This may take a few minutes...");
+  cout << "Writing to synched bag file. This may take a few minutes..." << endl;
   BOOST_FOREACH(rosbag::MessageInstance const msg, rosbagView)
   {
     if (msg.getTopic() == cam0_topic)
@@ -268,7 +257,7 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
 
   unsynched_bag.close();
   synched_bag.close();
-  ROS_INFO("Closing both bag files.");
+  cout << "Closing both bag files." << endl;
 }
 
 
@@ -288,8 +277,6 @@ int main(int argc, char** argv)
 
   synchronizeBag(rosbag_folder_path+"/"+unsynched_bag_name, nh);
 
-  //for loop to print out all the values of the stamp_diffs vectors - are they all zero values? 
-
   cout << "---" << endl;
   cout << "total messages written to bag:" << endl;
   cout << "imu = " << o << endl;
@@ -297,12 +284,11 @@ int main(int argc, char** argv)
   cout << "pressure = " << m << endl;
   cout << "---" << endl;
   cout << "timestamp differences with respect to cam0:" << endl;
-  cout << "max [cam1, imu, prs] = " << *max_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << ", " << *max_element(stamp_diffs_imu.begin(), stamp_diffs_imu.end()) << ", " << *max_element(stamp_diffs_prs.begin(), stamp_diffs_prs.end()) << endl;
-  cout << "min [cam1, imu, prs] = " << *min_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << ", " << *min_element(stamp_diffs_imu.begin(), stamp_diffs_imu.end()) << ", " << *min_element(stamp_diffs_prs.begin(), stamp_diffs_prs.end()) << endl;
-  cout << "average [cam1, imu, prs] = " << accumulate(stamp_diffs_img1.begin(), stamp_diffs_img1.end(), 0.0)/stamp_diffs_img1.size() << ", " << accumulate(stamp_diffs_img1.begin(), stamp_diffs_img1.end(), 0.0)/stamp_diffs_img1.size() << ", " << accumulate(stamp_diffs_img1.begin(), stamp_diffs_img1.end(), 0.0)/stamp_diffs_img1.size() << endl;
+  cout << "max [cam1, imu, prs] = " << *max_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << ", " << *max_element(stamp_diffs_imu.begin(), stamp_diffs_imu.end()) << ", " << *max_element(stamp_diffs_prs.begin(), stamp_diffs_prs.end()) << "msecs" << endl;
+  cout << "min [cam1, imu, prs] = " << *min_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << ", " << *min_element(stamp_diffs_imu.begin(), stamp_diffs_imu.end()) << ", " << *min_element(stamp_diffs_prs.begin(), stamp_diffs_prs.end()) << "msecs" << endl;
+  cout << "average [cam1, imu, prs] = " << round(accumulate(stamp_diffs_img1.begin(), stamp_diffs_img1.end(), 0.0)/stamp_diffs_img1.size()) << ", " << round(accumulate(stamp_diffs_imu.begin(), stamp_diffs_imu.end(), 0.0)/stamp_diffs_imu.size()) << ", " << round(accumulate(stamp_diffs_prs.begin(), stamp_diffs_prs.end(), 0.0)/stamp_diffs_prs.size()) << "msecs" << endl;
   cout << "---" << endl;
   cout << "Press Ctrl+C to kill the node." << endl;
 
-  ros::spin();
   return 0;
 }

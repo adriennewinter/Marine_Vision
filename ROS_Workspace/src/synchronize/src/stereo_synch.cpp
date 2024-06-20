@@ -15,6 +15,8 @@
 #include <iostream>
 #include <cstdio>
 #include <string>
+#include <cmath>
+#include <numeric>
 
 #include <ros/ros.h>
 #include <rosbag/bag.h>
@@ -26,6 +28,7 @@
 #include <sensor_msgs/Image.h>
 
 #include "synchronize/public_simple_filter.h"
+#include "synchronize/synchronize.h"
 
 using namespace std;
 
@@ -36,8 +39,8 @@ std::string cam0_topic;
 std::string cam1_topic;
 
 std::queue<sensor_msgs::Image> img0_queue, img1_queue;
+std::vector<int> stamp_diffs_img1;
 int i = 0; 
-
 
 //-------------------------FUNCTIONS-------------------------------------------------------
 void synchFilterCallback(const sensor_msgs::Image::ConstPtr& img0_msg, const sensor_msgs::Image::ConstPtr& img1_msg)
@@ -45,6 +48,10 @@ void synchFilterCallback(const sensor_msgs::Image::ConstPtr& img0_msg, const sen
 { 
   img0_queue.push(*img0_msg);
   img1_queue.push(*img1_msg);
+
+  // Find timestamp differences with respect to img0 and add to respective vectors
+  int img1_diff = findStampDiffMsec(img0_msg, img1_msg);
+  stamp_diffs_img1.push_back(img1_diff);
 }
 
 
@@ -64,7 +71,7 @@ void writeToBag(rosbag::Bag& synched_bag)
 
     // Write a synched pair of messages to a rosbag
     synched_bag.write(cam0_topic, img0_msg.header.stamp, img0_msg); 
-    synched_bag.write(cam1_topic, img1_msg.header.stamp, img1_msg);
+    synched_bag.write(cam1_topic, img0_msg.header.stamp, img1_msg);
     i += 1;
   }
 }
@@ -137,9 +144,13 @@ int main(int argc, char** argv)
   synchronizeBag(rosbag_folder_path+"/"+unsynched_bag_name, nh);
 
   cout << "Total synched camera messages written to bag = " << i << endl;
+  cout << "---" << endl;
+  cout << "cam1 timestamp differences with respect to cam0:" << endl;
+  cout << "max = " << *max_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << " msecs" << endl;
+  cout << "min = " << *min_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << " msecs" << endl;
+  cout << "average = " << round(accumulate(stamp_diffs_img1.begin(), stamp_diffs_img1.end(), 0.0)/stamp_diffs_img1.size()) << " msecs" << endl;
+  cout << "---" << endl;
   cout << "Press Ctrl+C to kill the node." << endl;
-
-  ros::spin(); 
  
   return 0;
 }
