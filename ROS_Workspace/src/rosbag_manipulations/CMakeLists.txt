@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(rosbag_manipulations)
 
-find_package(catkin REQUIRED COMPONENTS rosbag roscpp sensor_msgs)
+find_package(catkin REQUIRED COMPONENTS rosbag roscpp sensor_msgs rospy message_filters std_msgs)
 
 catkin_package()
 

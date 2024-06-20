@@ -1,8 +1,0 @@
-prefix=/home/adie_wsl/code/Marine_Vision/ROS_Workspace/devel
-
-Name: ezo_prs
-Description: Description of ezo_prs
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
