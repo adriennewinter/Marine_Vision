@@ -40,7 +40,10 @@ std::string cam1_topic;
 
 std::queue<sensor_msgs::Image> img0_queue, img1_queue;
 std::vector<int> stamp_diffs_img1;
+std::map<int,ros::Time> all_stamps_img1, all_stamps_img0;
+std::vector<ros::Time> written_stamps_img0, written_stamps_img1;
 int i = 0; 
+int j, k = 1;
 
 //-------------------------FUNCTIONS-------------------------------------------------------
 void synchFilterCallback(const sensor_msgs::Image::ConstPtr& img0_msg, const sensor_msgs::Image::ConstPtr& img1_msg)
@@ -72,7 +75,11 @@ void writeToBag(rosbag::Bag& synched_bag)
     // Write a synched pair of messages to a rosbag
     synched_bag.write(cam0_topic, img0_msg.header.stamp, img0_msg); 
     synched_bag.write(cam1_topic, img0_msg.header.stamp, img1_msg);
-    i += 1;
+    i++;
+
+    // Store to find indices of dropped messages
+    written_stamps_img0.push_back(img0_msg.header.stamp);
+    written_stamps_img1.push_back(img1_msg.header.stamp);
   }
 }
 
@@ -112,6 +119,8 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
       sensor_msgs::Image::ConstPtr img0 = msg.instantiate<sensor_msgs::Image>();
       if (img0 != NULL)
         img0_filter.publicSignalMessage(img0); // call the synchFilterCallback
+        all_stamps_img0[j] = img0->header.stamp; // record message index and timestamp 
+        j++;
     }
 
     if (msg.getTopic() == cam1_topic)
@@ -119,6 +128,8 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
       sensor_msgs::Image::ConstPtr img1 = msg.instantiate<sensor_msgs::Image>();
       if (img1 != NULL)
         img1_filter.publicSignalMessage(img1); 
+        all_stamps_img1[k] = img1->header.stamp; // record message index and timestamp 
+        k++;
     }
     writeToBag(synched_bag); // write to the rosbag (disk) and empty the image queues as callbacks are made to save RAM space
   }
@@ -143,12 +154,19 @@ int main(int argc, char** argv)
 
   synchronizeBag(rosbag_folder_path+"/"+unsynched_bag_name, nh);
 
+  cout << "---" << endl;
   cout << "Total synched camera messages written to bag = " << i << endl;
   cout << "---" << endl;
   cout << "cam1 timestamp differences with respect to cam0:" << endl;
   cout << "max = " << *max_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << " msecs" << endl;
   cout << "min = " << *min_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << " msecs" << endl;
   cout << "average = " << round(accumulate(stamp_diffs_img1.begin(), stamp_diffs_img1.end(), 0.0)/stamp_diffs_img1.size()) << " msecs" << endl;
+  cout << "---" << endl;
+    cout << "indices of dropped messages:" << endl;
+  cout << "cam0 = " << endl;
+  printDroppedInds(all_stamps_img0, written_stamps_img0);
+  cout << "cam1 = " << endl;
+  printDroppedInds(all_stamps_img1, written_stamps_img1);
   cout << "---" << endl;
   cout << "Press Ctrl+C to kill the node." << endl;
  

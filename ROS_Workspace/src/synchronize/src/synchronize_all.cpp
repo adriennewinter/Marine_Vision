@@ -55,10 +55,13 @@ struct synched_struct {
 };
 
 int m, n, o = 0; 
+int i, j, k, l = 1;
 std::deque<synched_struct> Synch1Buffer, Synch2Buffer; // a deque of structs
 std::deque<sensor_msgs::Imu> imuBuffer;
 std::deque<sensor_msgs::FluidPressure> prsBuffer;
 std::vector<int> stamp_diffs_imu, stamp_diffs_img1, stamp_diffs_prs;
+std::map<int,ros::Time> all_stamps_imu, all_stamps_img1, all_stamps_img0, all_stamps_prs;
+std::vector<ros::Time> written_stamps_imu, written_stamps_img0, written_stamps_img1, written_stamps_prs;
 
 //-------------------------CALLBACKS------------------------------------------------------------
 void Synch1Callback(const sensor_msgs::Image::ConstPtr& img0_synch_msg, const sensor_msgs::Image::ConstPtr& img1_synch_msg, const sensor_msgs::FluidPressure::ConstPtr& prs_synch_msg)
@@ -155,17 +158,22 @@ void writeToBag(rosbag::Bag& synched_bag)
             while(imuBuffer.front().header.stamp != imu_synch_msg_front.header.stamp) // loop 3
             { 
               synched_bag.write(imu_topic, imuBuffer.front().header.stamp, imuBuffer.front());
+              written_stamps_imu.push_back(imuBuffer.front().header.stamp); // Store to find indices of dropped messages
               imuBuffer.pop_front();
-              o += 1;
+              o++;
             }
-            
             imuBuffer.pop_front(); // remove the IMU message that is the same as the Synch2Buffer so we don't add it to the rosbag twice
 
             // Write the Synch2Buffer messages to the rosbag (images and IMU)
             synched_bag.write(imu_topic, img0_synch2_front.header.stamp, imu_synch_msg_front);
             synched_bag.write(cam0_topic, img0_synch2_front.header.stamp, img0_synch2_front); 
             synched_bag.write(cam1_topic, img0_synch2_front.header.stamp, img1_synch2_front);
-            n += 1;
+            n++; o++;
+
+            // Store to find indices of dropped messages
+            written_stamps_imu.push_back(imu_synch_msg_front.header.stamp);
+            written_stamps_img0.push_back(img0_synch2_front.header.stamp);
+            written_stamps_img1.push_back(img1_synch2_front.header.stamp);
 
             // Update the front Synch2Buffer messages
             Synch2Struct = Synch2Buffer.front();
@@ -176,8 +184,10 @@ void writeToBag(rosbag::Bag& synched_bag)
           
           // Write the remaining pressure topic of the current Synch1Buffer message to the rosbag
           synched_bag.write(prs_topic, img0_synch2_front.header.stamp, prs_synch1_msg);
+          written_stamps_prs.push_back(prs_synch1_msg.header.stamp); // Store to find indices of dropped messages
           Synch1Buffer.pop_front();
-          m += 1;
+          m++;
+
           break; 
         }
       }
@@ -233,24 +243,32 @@ void synchronizeBag(const std::string& filename, ros::NodeHandle& nh)
       sensor_msgs::Image::ConstPtr img0 = msg.instantiate<sensor_msgs::Image>();
       if (img0 != NULL)
         img0_filter.publicSignalMessage(img0); // call the Synch1Callback and Synch2Callback
+        all_stamps_img0[i] = img0->header.stamp; // record message index and timestamp 
+        i++;
     }
     if (msg.getTopic() == cam1_topic)
     {
       sensor_msgs::Image::ConstPtr img1 = msg.instantiate<sensor_msgs::Image>();
       if (img1 != NULL)
         img1_filter.publicSignalMessage(img1); // call the Synch1Callback and Synch2Callback
+        all_stamps_img1[j] = img1->header.stamp; // record message index and timestamp 
+        j++;
     }
     if (msg.getTopic() == imu_topic)
     {
       sensor_msgs::Imu::ConstPtr imu = msg.instantiate<sensor_msgs::Imu>();
       if (imu != NULL)
         imu_filter.publicSignalMessage(imu); // call the Synch2Callback and imuBufferCallback
+        all_stamps_imu[k] = imu->header.stamp; // record message index and timestamp  
+        k++;
     }
     if (msg.getTopic() == prs_topic)
     {
       sensor_msgs::FluidPressure::ConstPtr prs = msg.instantiate<sensor_msgs::FluidPressure>();
       if (prs != NULL)
         prs_filter.publicSignalMessage(prs); // call the Synch1Callback
+        all_stamps_prs[l] = prs->header.stamp; // record message index and timestamp 
+        l++;
     }
     writeToBag(synched_bag); // write to rosbag (disk) and empty the deques as callbacks are made to save RAM space
   }
@@ -284,9 +302,19 @@ int main(int argc, char** argv)
   cout << "pressure = " << m << endl;
   cout << "---" << endl;
   cout << "timestamp differences with respect to cam0:" << endl;
-  cout << "max [cam1, imu, prs] = " << *max_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << ", " << *max_element(stamp_diffs_imu.begin(), stamp_diffs_imu.end()) << ", " << *max_element(stamp_diffs_prs.begin(), stamp_diffs_prs.end()) << "msecs" << endl;
-  cout << "min [cam1, imu, prs] = " << *min_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << ", " << *min_element(stamp_diffs_imu.begin(), stamp_diffs_imu.end()) << ", " << *min_element(stamp_diffs_prs.begin(), stamp_diffs_prs.end()) << "msecs" << endl;
-  cout << "average [cam1, imu, prs] = " << round(accumulate(stamp_diffs_img1.begin(), stamp_diffs_img1.end(), 0.0)/stamp_diffs_img1.size()) << ", " << round(accumulate(stamp_diffs_imu.begin(), stamp_diffs_imu.end(), 0.0)/stamp_diffs_imu.size()) << ", " << round(accumulate(stamp_diffs_prs.begin(), stamp_diffs_prs.end(), 0.0)/stamp_diffs_prs.size()) << "msecs" << endl;
+  cout << "max [cam1, imu, prs] = " << *max_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << ", " << *max_element(stamp_diffs_imu.begin(), stamp_diffs_imu.end()) << ", " << *max_element(stamp_diffs_prs.begin(), stamp_diffs_prs.end()) << " msecs" << endl;
+  cout << "min [cam1, imu, prs] = " << *min_element(stamp_diffs_img1.begin(), stamp_diffs_img1.end()) << ", " << *min_element(stamp_diffs_imu.begin(), stamp_diffs_imu.end()) << ", " << *min_element(stamp_diffs_prs.begin(), stamp_diffs_prs.end()) << " msecs" << endl;
+  cout << "average [cam1, imu, prs] = " << round(accumulate(stamp_diffs_img1.begin(), stamp_diffs_img1.end(), 0.0)/stamp_diffs_img1.size()) << ", " << round(accumulate(stamp_diffs_imu.begin(), stamp_diffs_imu.end(), 0.0)/stamp_diffs_imu.size()) << ", " << round(accumulate(stamp_diffs_prs.begin(), stamp_diffs_prs.end(), 0.0)/stamp_diffs_prs.size()) << " msecs" << endl;
+  cout << "---" << endl;
+  cout << "indices of dropped messages:" << endl;
+  cout << "cam0 = " << endl;
+  printDroppedInds(all_stamps_img0, written_stamps_img0);
+  cout << "cam1 = " << endl;
+  printDroppedInds(all_stamps_img1, written_stamps_img1);
+  cout << "imu = " << endl;
+  printDroppedInds(all_stamps_imu, written_stamps_imu); 
+  cout << "prs = " << endl;
+  printDroppedInds(all_stamps_prs, written_stamps_prs);
   cout << "---" << endl;
   cout << "Press Ctrl+C to kill the node." << endl;
 
