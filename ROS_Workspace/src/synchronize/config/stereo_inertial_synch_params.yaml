@@ -1,7 +1,11 @@
 # Synchronize Node Parameters
 
-rosbag_folder_path: "/mnt/c/Users/adiee/OneDrive - University of Cape Town/Documents/MASTERS/Experimental Work/Dataset Creation/Ship-Hull-Vinyl-Dataset/Data" #path/to/folder
-unsynched_bag_name: "ship_hull_vinyl_raw.bag"
-cam0_topic: /video_source_0/raw
-cam1_topic: /video_source_1/raw
+# rosbag_folder_path: "/mnt/c/Users/adiee/OneDrive - University of Cape Town/Documents/MASTERS/Experimental Work/Dataset Creation/Ship-Hull-Vinyl-Dataset/Data" #path/to/folder
+# unsynched_bag_name: "ship_hull_vinyl_raw.bag"
+# cam0_topic: /video_source_0/raw
+# cam1_topic: /video_source_1/raw
+rosbag_folder_path: "/mnt/c/Users/adiee/OneDrive - University of Cape Town/Documents/MASTERS/Experimental Work/Sensor Readings/All Sensors ROS Bags" #path/to/folder
+unsynched_bag_name: "Sensor_Data_Synch_Test.bag"
+cam0_topic: /two_video_sources/image_0_raw
+cam1_topic: /two_video_sources/image_1_raw
 imu_topic: /imu/data

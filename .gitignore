@@ -1,4 +1,5 @@
 .vscode
+build
 ROS_Workspace/build/*
 ROS_Workspace/devel/*
 ROS_Workspace/.vscode
