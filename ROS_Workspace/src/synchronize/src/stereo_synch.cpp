@@ -28,7 +28,7 @@
 #include <sensor_msgs/Image.h>
 
 #include "synchronize/public_simple_filter.h"
-#include "synchronize/synchronize.h"
+#include "synchronize/synchronize_helper.h"
 
 using namespace std;
 
