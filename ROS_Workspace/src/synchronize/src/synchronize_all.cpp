@@ -40,7 +40,6 @@
 
 using namespace std;
 
-//-------------------------MAIN-------------------------------------------------------
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "synchronize_node");
