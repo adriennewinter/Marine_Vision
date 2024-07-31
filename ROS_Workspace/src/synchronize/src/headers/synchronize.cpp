@@ -24,8 +24,8 @@ Synchronize::Synchronize() {
     nh.getParam("imu_topic", imu_topic);
     nh.getParam("prs_topic", prs_topic);
 
-    m, n, o = 0;
-    i, j, k, l = 1;
+    m  = 0; n = 0; o = 0;
+    i = 1; j = 1; k = 1; l = 1;
 
     // Load unsynched rosbag
     unsynched_bag.open(rosbag_folder_path+"/"+unsynched_bag_name, rosbag::bagmode::Read);
@@ -34,21 +34,17 @@ Synchronize::Synchronize() {
     topics.push_back(cam1_topic);
     topics.push_back(imu_topic);
     topics.push_back(prs_topic);
-    rosbag::View rosbagView(unsynched_bag, rosbag::TopicQuery(topics));
+    rosbagView.addQuery(unsynched_bag, rosbag::TopicQuery(topics));
     cout << "Opening unsynched bag file." << endl;
 
     // Create empty rosbag to write synched messages into 
     synched_bag.open(rosbag_folder_path+"/"+"Synched.bag", rosbag::bagmode::Write);  
 
-    // Create Approximate Time Synchronizer 1 (pressure sensor and cameras)
-    typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image, sensor_msgs::FluidPressure> approxTimePolicy1; 
-    message_filters::Synchronizer<approxTimePolicy1> sync1(approxTimePolicy1(100), img0_filter, img1_filter, prs_filter);
-    sync1.registerCallback(boost::bind(&Synchronize::Synch1Callback, this, _1, _2, _3)); 
-    
-    // Create Approximate Time Synchronizer 2 (cameras and IMU)
-    typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image, sensor_msgs::Imu> approxTimePolicy2; 
-    message_filters::Synchronizer<approxTimePolicy2> sync2(approxTimePolicy2(100), img0_filter, img1_filter, imu_filter);
-    sync2.registerCallback(boost::bind(&Synchronize::Synch2Callback, this, _1, _2, _3));
+    // Register Approximate Time Synchronizer filter callbacks
+    sync1 = boost::make_shared<message_filters::Synchronizer<approxTimePolicy1>> (approxTimePolicy1(100), img0_filter, img1_filter, prs_filter);
+    sync1->registerCallback(boost::bind(&Synchronize::Synch1Callback, this, _1, _2, _3)); 
+    sync2 = boost::make_shared<message_filters::Synchronizer<approxTimePolicy2>> (approxTimePolicy2(100), img0_filter, img1_filter, imu_filter);
+    sync2->registerCallback(boost::bind(&Synchronize::Synch2Callback, this, _1, _2, _3));
 
     // Register the IMU Buffer Callback
     imu_filter.registerCallback(boost::bind(&Synchronize::imuBufferCallback, this, _1));

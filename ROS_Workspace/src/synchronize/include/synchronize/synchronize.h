@@ -12,12 +12,20 @@ using namespace std;
 
 class Synchronize { 
     public:        
-        std::string rosbag_folder_path;
-        std::string unsynched_bag_name;
-        std::string cam0_topic;
-        std::string cam1_topic;
-        std::string imu_topic;
-        std::string prs_topic;
+        // metrics
+        int m, n, o, i, j, k, l;
+        std::vector<int> stamp_diffs_imu, stamp_diffs_img1, stamp_diffs_prs;
+        std::map<int,ros::Time> all_stamps_imu, all_stamps_img1, all_stamps_img0, all_stamps_prs;
+        std::vector<ros::Time> written_stamps_imu, written_stamps_img0, written_stamps_img1, written_stamps_prs;
+
+        Synchronize();
+        ~Synchronize();
+
+        // Load rosbag, iterate through the messages on each topic, call the synchronizer callback and write to a new bag
+        void synchronizeBag();
+
+    private:
+        std::string rosbag_folder_path, unsynched_bag_name, cam0_topic, cam1_topic, imu_topic, prs_topic;
 
         struct synched_struct {
             sensor_msgs::Image img0;
@@ -31,26 +39,19 @@ class Synchronize {
         std::deque<sensor_msgs::Imu> imu_buffer;
         std::deque<synched_struct> synch_1_buffer, synch_2_buffer; 
 
-        // metrics
-        int m, n, o; 
-        int i, j, k, l;
-        std::vector<int> stamp_diffs_imu, stamp_diffs_img1, stamp_diffs_prs;
-        std::map<int,ros::Time> all_stamps_imu, all_stamps_img1, all_stamps_img0, all_stamps_prs;
-        std::vector<ros::Time> written_stamps_imu, written_stamps_img0, written_stamps_img1, written_stamps_prs;
-
         // Set up public_simple_filters for message callbacks
-        PublicSimpleFilter<sensor_msgs::Image> img0_filter;
-        PublicSimpleFilter<sensor_msgs::Image> img1_filter;
+        PublicSimpleFilter<sensor_msgs::Image> img0_filter, img1_filter;
         PublicSimpleFilter<sensor_msgs::Imu> imu_filter;
         PublicSimpleFilter<sensor_msgs::FluidPressure> prs_filter;
 
-        Synchronize();
-        ~Synchronize();
+        // Create Approximate Time Synchronizer 1 (pressure sensor and cameras)
+        typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image, sensor_msgs::FluidPressure> approxTimePolicy1; 
+        boost::shared_ptr<message_filters::Synchronizer<approxTimePolicy1>> sync1;
 
-        // Load rosbag, iterate through the messages on each topic, call the synchronizer callback and write to a new bag
-        void synchronizeBag();
+        // Create Approximate Time Synchronizer 2 (cameras and IMU)
+        typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image, sensor_msgs::Imu> approxTimePolicy2; 
+        boost::shared_ptr<message_filters::Synchronizer<approxTimePolicy2>> sync2;
 
-    private:
         // Add all IMU messages to a buffer (deque) so that we can preserve higher IMU rate
         void imuBufferCallback(const sensor_msgs::Imu::ConstPtr& imu_msg);
 
