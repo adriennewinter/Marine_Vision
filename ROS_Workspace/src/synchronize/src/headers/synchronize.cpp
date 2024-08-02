@@ -182,7 +182,7 @@ void Synchronize::synchronizeBag()
     {
       sensor_msgs::Image::ConstPtr img0 = msg.instantiate<sensor_msgs::Image>();
       if (img0 != NULL)
-        img0_filter.publicSignalMessage(img0); // call the Synch1Callback and Synch2Callback
+        img0_filter.publicSignalMessage(img0); // call the registered callbacks
         all_stamps_img0[i] = img0->header.stamp; // record message index and timestamp 
         i++;
     }
@@ -190,24 +190,24 @@ void Synchronize::synchronizeBag()
     {
       sensor_msgs::Image::ConstPtr img1 = msg.instantiate<sensor_msgs::Image>();
       if (img1 != NULL)
-        img1_filter.publicSignalMessage(img1); // call the Synch1Callback and Synch2Callback
-        all_stamps_img1[j] = img1->header.stamp; // record message index and timestamp 
+        img1_filter.publicSignalMessage(img1); 
+        all_stamps_img1[j] = img1->header.stamp; 
         j++;
     }
     if (msg.getTopic() == imu_topic)
     {
       sensor_msgs::Imu::ConstPtr imu = msg.instantiate<sensor_msgs::Imu>();
       if (imu != NULL)
-        imu_filter.publicSignalMessage(imu); // call the Synch2Callback and imuBufferCallback
-        all_stamps_imu[k] = imu->header.stamp; // record message index and timestamp  
+        imu_filter.publicSignalMessage(imu); 
+        all_stamps_imu[k] = imu->header.stamp;  
         k++;
     }
     if (msg.getTopic() == prs_topic)
     {
       sensor_msgs::FluidPressure::ConstPtr prs = msg.instantiate<sensor_msgs::FluidPressure>();
       if (prs != NULL)
-        prs_filter.publicSignalMessage(prs); // call the Synch1Callback
-        all_stamps_prs[l] = prs->header.stamp; // record message index and timestamp 
+        prs_filter.publicSignalMessage(prs); 
+        all_stamps_prs[l] = prs->header.stamp; 
         l++;
     }
     writeToBag(); // write to rosbag (disk) and empty the deques as callbacks are made to save RAM space
