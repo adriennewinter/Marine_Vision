@@ -38,7 +38,7 @@ int main(int argc, char** argv)
   // Create synchronize ROS node
   ros::init(argc, argv, "stereo_synch");
 
-  Synchronize stereo_synch;
+  Synchronize stereo_synch("stereo_synch");
 
   stereo_synch.synchronizeBag();
 

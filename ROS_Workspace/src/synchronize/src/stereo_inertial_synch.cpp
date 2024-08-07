@@ -40,7 +40,7 @@ int main(int argc, char** argv)
 {
   ros::init(argc, argv, "stereo_inertial_synch");
 
-  Synchronize ster_inert_synch;
+  Synchronize ster_inert_synch("stereo_inertial_synch");
 
   ster_inert_synch.synchronizeBag();
 

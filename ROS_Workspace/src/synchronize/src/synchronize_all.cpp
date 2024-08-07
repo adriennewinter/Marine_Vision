@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 {
   ros::init(argc, argv, "synchronize_node");
 
-  Synchronize synch_all;
+  Synchronize synch_all("synch_all");
 
   synch_all.synchronizeBag();
 
