@@ -1,6 +1,8 @@
 .vscode
-build
-ROS_Workspace/build/*
-ROS_Workspace/devel/*
-ROS_Workspace/.vscode
-ROS_Workspace/ROS_Workspace.code-workspace
+.gitignore
+Sensor Rig Construction/build
+Sensor Rig Construction/ROS_Workspace/build/*
+Sensor Rig Construction/ROS_Workspace/devel/*
+Sensor Rig Construction/ROS_Workspace/.vscode
+Sensor Rig Construction/ROS_Workspace/ROS_Workspace.code-workspace
+Sensor Rig Construction/ROS_Workspace/.vscode
