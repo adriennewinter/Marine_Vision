@@ -1,4 +1,4 @@
-# Marine_Vision
+# Sensor Rig Construction
 Supplementary material to the sensor rig construction of Adrienne Winter's MSc Mechatronics Engineering dissertation with the African Robotics Unit at the University of Cape Town. Supervised by Robyn Verrinder, Professor Edward Boje and Doctor Paul Amayo.
 
 <img src=https://github.com/adriennewinter/Ship-Hull-Vinyl-Dataset/assets/41785960/88b79a48-5fd5-487f-be79-a25328e091f1 height="300" align=right>
@@ -28,3 +28,4 @@ The ROS workspace was developed in ROS1 Melodic and is written in C++. All code 
         ├── synchronize - <i>helper package - synchronize sensor data</i>
         └── xsens_mti_driver - <i>IMU driver - provided by Xsens</i>
 </pre>       
+
