@@ -10,7 +10,7 @@ The ROS workspace was developed in ROS1 Melodic and is written in C++. All code 
 * ros_deep_learning - this package is provided by Nvidia and is adapted by us for use with the ArduCam CSI cameras on the Nvidia Jetson Nano.
 
 <pre>
- Marine_Vision/
+ Marine_Vision/Sensor Rig Construction
 |── 3D Printing Files/ 
 │   ├── Box to Strut
 │   ├── Case for ArduCam Camera - <i>provided by ArduCam</i>
@@ -28,4 +28,5 @@ The ROS workspace was developed in ROS1 Melodic and is written in C++. All code 
         ├── synchronize - <i>helper package - synchronize sensor data</i>
         └── xsens_mti_driver - <i>IMU driver - provided by Xsens</i>
 </pre>       
+
 
