@@ -26,6 +26,9 @@ The ROS workspace and 3D printing files are provided [here](https://github.com/a
 ## Underwater Camera Calibration
 The logistical difficulty of collecting good underwater camera calibration, necessary for producing high-quality SLAM datasets, was noted. An open-source calibration method that addresses this (the Pinax camera calibration model) was evaluated and contributed to. The Pinax calibration method was shown to significantly improve underwater stereo depth estimation accuracy (6.2% mean error using the Pinax method versus 49.4% with traditional calibration).
 
+<p align="center" width="100%"> <img width="40%" alt="depth_maps_with_orig_pics" src="https://github.com/user-attachments/assets/337ef96c-3f54-4af4-a261-23c6ee8ed850" /> </p>
+
+
 ## Underwater SLAM Dataset Creation
 An underwater SLAM dataset including stereo images, inertial (IMU) and pressure readings was created in a controlled tank at the Institute for Marine Technology (IMT) in Cape Town, South Africa and made publicly available. A C++ ROS data synchronization package was created and made publicly available that synchronizes up to 4 sensor topics using timestamps and preserves original sensor frequencies.
 
