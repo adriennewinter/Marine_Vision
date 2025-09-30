@@ -19,7 +19,7 @@ This dissertation explores the use of underwater SLAM (Simultaneous Localization
 ## Sensor Rig Construction
 A lack of well-documented underwater SLAM datasets was noted and a prototype multi-sensor rig was designed and tested for the creation of a dataset (stereo-inertial-pressure). The rig construction highlighted practical lessons in hardware robustness. 
 
-The ROS workspace and 3D printing files are provided here. 
+The ROS workspace and 3D printing files are provided [here](https://github.com/adriennewinter/Marine_Vision/tree/main/Sensor%20Rig%20Construction). 
 
 <p align="center" width="100%"> <img width="40%" alt=final_rig src="https://github.com/user-attachments/assets/2588dbc9-776d-476c-81fb-c9ec3b47b700" /> </p>
 
