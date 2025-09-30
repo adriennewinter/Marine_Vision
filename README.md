@@ -2,10 +2,10 @@
 
 ## MSc (Research) Mechatronics Engineering dissertation.
 
-Author: Adrienne Winter.  
-Supervisors: Robyn Verrinder, Professor Edward Boje and Doctor Paul Amayo.  
-Research Group: African Robotics Unit (ARU) at the University of Cape Town (UCT).  
-Funders: South African International Maritime Institute (SAIMI) and Oppenheimer Memorial Trust.  
+**_Author:_** Adrienne Winter.  
+**_Supervisors:_** Robyn Verrinder, Professor Edward Boje and Doctor Paul Amayo.  
+**_Research Group:_** African Robotics Unit (ARU) at the University of Cape Town (UCT).  
+**_Funders:_** South African International Maritime Institute (SAIMI) and Oppenheimer Memorial Trust.  
 
 This dissertation explores the use of underwater SLAM (Simultaneous Localization and Mapping) for visual reconstruction of ship hulls — a problem with major implications for the maritime industry, which carries the majority of global trade. The research focuses on camera-based methods for mapping in feature-sparse underwater environments in two main areas - dataset creation and visual odometry in feature-sparse underwater scenes. 
 
