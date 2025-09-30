@@ -21,7 +21,7 @@ A lack of well-documented underwater SLAM datasets was noted and a prototype mul
 
 The ROS workspace and 3D printing files are provided [here](https://github.com/adriennewinter/Marine_Vision/tree/main/Sensor%20Rig%20Construction). 
 
-<p align="center" width="100%"> <img width="40%" alt=final_rig src="https://github.com/user-attachments/assets/2588dbc9-776d-476c-81fb-c9ec3b47b700" /> </p>
+<p align="center" width="100%"> <img width="40%" alt="final_rig" src="https://github.com/user-attachments/assets/2588dbc9-776d-476c-81fb-c9ec3b47b700" /> </p>
 
 ## Underwater Camera Calibration
 The logistical difficulty of collecting good underwater camera calibration, necessary for producing high-quality SLAM datasets, was noted. An open-source calibration method that addresses this (the Pinax camera calibration model) was evaluated and contributed to. The Pinax calibration method was shown to significantly improve underwater stereo depth estimation accuracy (6.2% mean error using the Pinax method versus 49.4% with traditional calibration).
@@ -32,8 +32,10 @@ The logistical difficulty of collecting good underwater camera calibration, nece
 ## Underwater SLAM Dataset Creation
 An underwater SLAM dataset including stereo images, inertial (IMU) and pressure readings was created in a controlled tank at the Institute for Marine Technology (IMT) in Cape Town, South Africa and made publicly available. A C++ ROS data synchronization package was created and made publicly available that synchronizes up to 4 sensor topics using timestamps and preserves original sensor frequencies.
 
+<p align="center" width="100%"> <img width="40%" alt="rig_on_tank_platform" src="https://github.com/user-attachments/assets/871a5691-49c1-45a5-8eac-7dc4595ab01f" /> </p>
+
 ## Stereo Visual Odometry Pipeline
 A stereo visual odometry (VO) pipeline was developed and evaluated for feature-sparse underwater scenes, comparing SIFT and ORB features with adaptive thresholding and image enhancement methods. Results showed ORB with image de-hazing, CLAHE filtering and robust outlier rejection delivered the most stable and efficient performance in underwater scenes.
 
-
+<p align="center" width="100%"> <img width="60%" alt="VO_SLAM_Context" src="https://github.com/user-attachments/assets/852f1bcf-ba88-4370-beea-8f66ebd028e5" /> </p>
 
