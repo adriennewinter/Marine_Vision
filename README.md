@@ -7,7 +7,7 @@
 **_Research Group:_** African Robotics Unit (ARU) at the University of Cape Town (UCT).  
 **_Funders:_** South African International Maritime Institute (SAIMI) and Oppenheimer Memorial Trust.  
 
-This dissertation explores the use of underwater SLAM (Simultaneous Localization and Mapping) for visual reconstruction of ship hulls — a problem with major implications for the maritime industry, which carries the majority of global trade. The research focuses on camera-based methods for mapping in feature-sparse underwater environments in two main areas - dataset creation and visual odometry in feature-sparse underwater scenes. 
+This dissertation explores the use of underwater SLAM (Simultaneous Localization and Mapping) for visual reconstruction of ship hulls — a problem with major implications for the maritime industry, which carries the majority of global trade. The research focuses on camera-based methods for mapping in feature-sparse underwater environments in two main areas - dataset creation and visual odometry in the context of SLAM. 
 
 <p align="center" width="100%">
   <img width="209" height="150" alt="aru_logo_white_background" src="https://github.com/user-attachments/assets/b710eaf6-498c-4cb0-98bb-21ffc8ffa6c5" />
