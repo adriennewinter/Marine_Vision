@@ -43,7 +43,7 @@ The ROS workspace was developed in ROS1 Melodic and is written in C++. All code 
 * xsens_mti_driver - this package is provided by Xsens for use with the IMU.
 * ros_deep_learning - this package is provided by Nvidia and is adapted by us for use with the ArduCam CSI cameras on the Nvidia Jetson Nano.
 
-The ROS data synchronisation package is also provided in the ROS workspace [here](https://github.com/adriennewinter/Marine_Vision/tree/main/Sensor%20Rig%20Construction/ROS_Workspace/src/synchronize).
+The custom ROS data synchronisation package is also provided in the ROS workspace [here](https://github.com/adriennewinter/Marine_Vision/tree/main/Sensor%20Rig%20Construction/ROS_Workspace/src/synchronize).
 
 # Prototype Development Details
 The rig was designed with practical constraints in mind, focusing on affordability, portability, and compatibility with key sensors such as stereo cameras, an IMU, and a pressure sensor. These components were selected for their complementary roles in underwater SLAM and their alignment with the research objectives of enabling accurate trajectory estimation and visual reconstructions.
@@ -80,4 +80,5 @@ Data collection was planned to be operated from the side of a pool, tank or jett
  <br>
  <i>Diagram showing the electrical setup.</i>
 </p>
+
 
