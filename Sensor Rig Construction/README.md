@@ -1,5 +1,6 @@
 # Sensor Rig Construction
-Supplementary material to the sensor rig construction used to create the Shiphull Vinyl underwater SLAM dataset.  
+## Repo Structure
+Supplementary material to the sensor rig construction used to create the [Shiphull Vinyl underwater SLAM dataset](https://github.com/African-Robotics-Unit/Ship-Hull-Vinyl-Dataset).  
 
 <pre>
 Marine_Vision/Sensor Rig Construction
@@ -27,8 +28,9 @@ In the 3D printing files directory, all files are created by us except for the A
  <img width="10%" alt="goPro-to-strut" src="https://github.com/user-attachments/assets/7478ebf5-0220-4198-b137-d3c0060c9056" />
  <img width="10%" alt="pole-to-strut" src="https://github.com/user-attachments/assets/53ab0e90-5454-4c01-b76f-f616a157aa2c" />
  <img width="7%" alt="dive_torch" src="https://github.com/user-attachments/assets/c0b21d17-aede-48c0-9504-da6bcca11c91" />
+ <img width="7.5%" alt="L-bracket" src="https://github.com/user-attachments/assets/16da769c-b641-4a1e-8764-5287c46f71f9" />
  <br>
- 3D printed parts designed for the data collection rig.
+ 3D printed parts designed in SOLIDWORKS for the data collection rig.
 </p>
 
 <p align="center" width="100%"> 
@@ -40,6 +42,16 @@ In the 3D printing files directory, all files are created by us except for the A
 The ROS workspace was developed in ROS1 Melodic and is written in C++. All code is developed by us, except for the following third-party packages:
 * xsens_mti_driver - this package is provided by Xsens for use with the IMU.
 * ros_deep_learning - this package is provided by Nvidia and is adapted by us for use with the ArduCam CSI cameras on the Nvidia Jetson Nano.
+
+<br>
+<p align="center">
+ <img width="60%" alt="ROS_development" src="https://github.com/user-attachments/assets/e5e8ab37-084c-4c2b-9c5d-1963f4df7593" />
+ <br>   
+ Image showing development of the ROS workspace and nodes on the sensor rig.   
+</p>
+
+# Prototype Development Details
+Because the planned dataset collection and evaluation of the calibration method are planned to be taken in a tank, pool and in shallow sea water off the side of a jetty, the depth rating of the prototype sensor rig is 2 m. These use cases also guide our decision to make the rig handheld and operated from the side of the pool, tank or jetty.
 
 <p align="center">
  <img width="60%" alt="final_rig" src="https://github.com/user-attachments/assets/8583c64e-fdea-493d-bdfc-fcfca55992ff" />   
@@ -58,9 +70,4 @@ The ROS workspace was developed in ROS1 Melodic and is written in C++. All code 
  <br>
  Diagram showing the electrical setup. 
 </p>
-  
-<br>
 
-<p align="center">
- <img width="60%" alt="ROS_development" src="https://github.com/user-attachments/assets/3a795680-e548-4dcf-89fa-fb44ff74cee8" />
-</p>
