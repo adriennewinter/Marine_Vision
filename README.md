@@ -39,8 +39,10 @@ An underwater SLAM dataset including stereo images, inertial (IMU) and pressure 
 The Ship Hull Vinyl Dataset repo is provided [here](https://github.com/African-Robotics-Unit/Ship-Hull-Vinyl-Dataset).  
 The ROS synchronisation package is provided [here](https://github.com/adriennewinter/Marine_Vision/tree/main/Sensor%20Rig%20Construction/ROS_Workspace/src/synchronize).
 
-<p align="center" width="100%"> <img width="40%" alt="rig_on_tank_platform" src="https://github.com/user-attachments/assets/871a5691-49c1-45a5-8eac-7dc4595ab01f" /> </p>  
-<p align="center" width="100%"> <img width="40%" alt="VIO_pressure_stereo_Factor_Graph" src="https://github.com/user-attachments/assets/a1ded966-d38f-43f1-9e0e-7f7dbc98ca8e" /> </p>
+<p align="center" width="100%"> 
+  <img width="25%" alt="rig_on_tank_platform" src="https://github.com/user-attachments/assets/871a5691-49c1-45a5-8eac-7dc4595ab01f" /> 
+  <img width="48.5%" alt="VIO_pressure_stereo_Factor_Graph" src="https://github.com/user-attachments/assets/a1ded966-d38f-43f1-9e0e-7f7dbc98ca8e" />
+</p>  
 
 ## Stereo Visual Odometry Pipeline
 A stereo visual odometry (VO) pipeline was developed and evaluated for feature-sparse underwater scenes, comparing SIFT and ORB features with adaptive thresholding and image enhancement methods. Results showed ORB with image de-hazing, CLAHE filtering and robust outlier rejection delivered the most stable and efficient performance in underwater scenes.
