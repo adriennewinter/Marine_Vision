@@ -51,7 +51,7 @@ The details of underwater camera calibration are provided [here](https://github.
 </p>
 
 ## Underwater SLAM Dataset Creation
-An underwater SLAM dataset including stereo images, inertial (IMU) and pressure readings was created in a controlled tank at the Institute for Marine Technology (IMT) in Cape Town, South Africa and made publicly available [here](https://github.com/African-Robotics-Unit/Ship-Hull-Vinyl-Dataset). 
+An underwater SLAM dataset including stereo images, inertial (IMU) and pressure readings was created in a controlled tank at the Institute for Marine Technology (IMT) in Cape Town, South Africa and made open source available [here](https://github.com/African-Robotics-Unit/Ship-Hull-Vinyl-Dataset). 
 
 <p align="center" width="100%"> 
   <img width="25%" alt="rig_on_tank_platform" src="https://github.com/user-attachments/assets/871a5691-49c1-45a5-8eac-7dc4595ab01f" /> 
