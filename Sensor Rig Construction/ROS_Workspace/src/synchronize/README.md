@@ -1,6 +1,6 @@
 # Data Synchronisation ROS Package
 
-This ROS package (tested on ROS1 Melodic and Noetic) contains C++ code for synchronising rosbag data from multiple sensors: stereo cameras, IMU and a pressure sensor.
+This ROS package (tested on ROS1 Melodic and Noetic) contains C++ code for synchronising rosbag data from multiple sensors: stereo cameras, IMU and a pressure sensor (but can be adapted to other sensor types).
 
 The '[Approximate Time synchroniser](http://wiki.ros.org/message_filters/ApproximateTime)' filter is used from the ROS '[message_filters](http://wiki.ros.org/message_filters)' package to synchronise messages. Because it is approximate time, it does not expect the timestamps to be exact, instead, it does a best-match search over the message header timestamps to find sets of synchronised messages across the input topics. Some messages can be dropped during this process when optimizing for the best fit over multiple messages. 
 
