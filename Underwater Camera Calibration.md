@@ -3,7 +3,7 @@
 ## GitHub Repo
 The GitHub repo for implementing this method can be found [here](https://github.com/adriennewinter/Pinax-Camera-Model).
 
-We make some changes to the authors’ available MATLAB code to improve ease of use. The original code uses OpenCV functions in a MATLAB script, which requires a difficult source integration to enable use of the third-party library inside of MATLAB. Our adaptation converts all OpenCV functions in the script to equivalent MATLAB native functions, so the script is ready to run with no additional integrations between MATLAB and external libraries.
+We make some changes to the authors’ available MATLAB code to improve ease of use. Our adaptation converts all OpenCV functions in the scripts to equivalent MATLAB native functions, so the scripts are ready to run with no additional integrations between MATLAB and external libraries, which can be difficult and add to development time.
 
 This calibration method is used on the documented underwater SLAM [dataset](https://github.com/African-Robotics-Unit/Ship-Hull-Vinyl-Dataset) we collected in the indoor tank at the Institute For Maritime Technology (IMT) in Simon’s Town, Cape Town.
 
