@@ -1,1 +1,1 @@
-# Visual Odometry Pipeline
+# Stereo Visual Odometry Pipeline
