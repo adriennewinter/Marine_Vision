@@ -19,3 +19,9 @@ A newer approach to underwater camera intrinsic calibration that attempts to sol
 
 ## The Pinax Model
 We provide an explanation of the method here with additional diagrams, contributed by us, that are not found in the [original paper](https://www.sciencedirect.com/science/article/pii/S0029801817300434) for enhanced understanding of the process. 
+
+<p align="center" width="100%">
+  <img width="40%" alt="Pinax_model_projection-1" src="https://github.com/user-attachments/assets/eb8e75fb-25ce-40a2-af21-26038457d69e" />
+  <img width="40%" alt="Pinax_model_projection-6" src="https://github.com/user-attachments/assets/a6938ac6-64ce-4d76-a249-8ccad5e278f7" />
+  <img width="40%" alt="Pinax_model_projection-4_arrows" src="https://github.com/user-attachments/assets/ab362c89-8496-456d-a1e7-d3765305b7bd" />
+</p>
