@@ -5,6 +5,8 @@ The GitHub repo for implementing this method can be found [here](https://github.
 
 We make some changes to the authors’ available MATLAB code to improve ease of use. The original code uses OpenCV functions in a MATLAB script, which requires a difficult source integration to enable use of the third-party library inside of MATLAB. Our adaptation converts all OpenCV functions in the script to equivalent MATLAB native functions, so the script is ready to run with no additional integrations between MATLAB and external libraries.
 
+This calibration method is used on the documented underwater SLAM [dataset](https://github.com/African-Robotics-Unit/Ship-Hull-Vinyl-Dataset) we collected in the indoor tank at the Institute For Maritime Technology (IMT) in Simon’s Town, Cape Town.
+
 ## Underwater Camera Calibration
 Without good camera calibration there are not many useful computer vision tasks that can be achieved. Camera calibrations are used to remove
 distortion introduced by camera lenses (intrinsics) and to rectify stereo images (extrinsics), which allows us to make use of epipolar geometry constraints to simplify various computer vision tasks, such as calculating disparity between a stereo pair to estimate scene depth or searching for feature correspondence between frames.
@@ -16,3 +18,4 @@ In-situ calibration can be logistically difficult when working in the ocean, whe
 A newer approach to underwater camera intrinsic calibration that attempts to solve the issues of logistical difficulty and calibration accuracy is the [Pinax model](https://www.sciencedirect.com/science/article/pii/S0029801817300434). The authors, Luczynski et al., show that with knowledge of the physical underwater camera housing and refraction indices of the media that light is travelling through, the additional distortion caused by refraction can be removed computationally. The “normal” in-air intrinsic calibration is then used to remove the distortions introduced by the camera lens itself.
 
 ## The Pinax Model
+We provide an explanation of the method here with additional diagrams, contributed by us, that are not found in the original paper for enhanced understanding of the process. 
