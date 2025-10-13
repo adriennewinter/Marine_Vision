@@ -18,21 +18,3 @@ In-situ calibration can be logistically difficult when working in the ocean, whe
 A newer approach to underwater camera intrinsic calibration that attempts to solve the issues of logistical difficulty and calibration accuracy is the Pinax model ([paper](https://www.sciencedirect.com/science/article/pii/S0029801817300434)). The authors, Luczynski et al., show that with knowledge of the physical underwater camera housing and refraction indices of the media that light is travelling through, the additional distortion caused by refraction can be removed computationally. The “normal” in-air intrinsic calibration is then used to remove the distortions introduced by the camera lens itself.
 
 The Pinax model works for flat viewport camera housings (as opposed to domed viewports). When manufactured properly, round viewports can convert light refraction so that the camera model underwater behaves like a simple perspective projection camera. But, if the camera axis is slightly off-centre from the centre of the dome, the geometry of the refractions changes and the image distortions no longer behave like a perspective projection camera. Using a flat viewport for underwater camera housings at moderate depths is less expensive, and logistically easier to setup, making underwater vision more accessible. Unfortunately, the flat viewport introduces distortion due to light refraction between changing mediums – water, glass and air.
-
-## The Pinax Model
-We provide an explanation of the method here with additional diagrams, contributed by us, that are not found in the [original paper](https://www.sciencedirect.com/science/article/pii/S0029801817300434) for enhanced understanding of the process. 
-
-Agrawal et. al. ([paper](https://ieeexplore.ieee.org/abstract/document/6248073)) make the finding that a camera in an underwater housing with a flat viewport can be modelled as an axial camera. This model differs from the pinhole model because light rays do not intersect the camera optical axis at a single point. Luczynski et al. show in the Pinax model [paper](https://www.sciencedirect.com/science/article/pii/S0029801817300434) that when the camera is placed sufficiently close to the viewport, light rays that are traced from the water medium would theoretically intersect the optical axis along a section that is small enough to approximate as a single point – in the 0.008 mm range. They make use of this fact and the findings by Agrawal et. al. ([paper](https://ieeexplore.ieee.org/abstract/document/6248073)) to define the Pinax model – a mapping between a virtual pinhole camera and the physical underwater axial camera. The benefit of this mapping is that once refraction distortions have been removed numerically, we can use the camera intrinsics found in-air to remove the remaining lens distortions, with no tedious in-water calibrations necessary. The output of the Pinax method is then undistorted underwater images that can be used for further image processing.
-
-The diagram below illustrates the concept of the physical axial camera and virtual pinhole equivalent. Where: nw, ng and na are the water, glass and air refraction indices respectively. d1 is the glass thickness. d0 is the distance of the physical camera center of projection to the viewport. x is the distance of the virtual camera focal point to the outside of the viewport. α is the angle of incidence in the air medium. β and γ are the angle of refraction in the glass and water media respectively. δ is the angle of reflection.
-
-<p align="center" width="100%">
-  <img width="40%" alt="Pinax_model_projection-4_arrows" src="https://github.com/user-attachments/assets/ab362c89-8496-456d-a1e7-d3765305b7bd" />
-  <br>
-  <i>Diagram showing the relationship between the physical axial camera and virtual pinhole equivalent.</i>
-</p>
-
-<p align="center" width="100%">
-  <img width="40%" alt="Pinax_model_projection-1" src="https://github.com/user-attachments/assets/eb8e75fb-25ce-40a2-af21-26038457d69e" />
-  <img width="40%" alt="Pinax_model_projection-6" src="https://github.com/user-attachments/assets/a6938ac6-64ce-4d76-a249-8ccad5e278f7" />
-</p>
