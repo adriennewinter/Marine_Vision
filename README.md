@@ -63,7 +63,7 @@ An underwater SLAM dataset including stereo images, inertial (IMU) and pressure 
 ## Stereo Visual Odometry Pipeline
 A stereo visual odometry (VO) pipeline was developed and evaluated for feature-sparse underwater scenes, comparing SIFT and ORB features with adaptive thresholding and image enhancement methods. Results showed ORB with image de-hazing, CLAHE filtering and robust outlier rejection delivered the most stable and efficient performance in underwater scenes.
 
-Details of the VO pipeline are provided [here](https://github.com/adriennewinter/Marine_Vision/blob/main/Visual%20Odometry%20Pipeline.md).
+Details of the VO pipeline are provided [here](https://github.com/adriennewinter/Marine_Vision/blob/main/Visual%20Odometry%20Pipeline.md). Unfortunately, the source code is part of a private repository with the University of Cape Town and cannot be shared.
 
 <p align="center" width="100%"> 
   <img width="60%" alt="VO_SLAM_Context" src="https://github.com/user-attachments/assets/852f1bcf-ba88-4370-beea-8f66ebd028e5" /> 
