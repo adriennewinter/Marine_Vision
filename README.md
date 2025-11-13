@@ -67,6 +67,8 @@ Details of the VO pipeline are provided [here](https://github.com/adriennewinter
 
 <p align="center" width="100%"> 
   <img width="60%" alt="VO_SLAM_Context" src="https://github.com/user-attachments/assets/852f1bcf-ba88-4370-beea-8f66ebd028e5" /> 
+  <img width="60%" alt="sift_correspondence" src="https://github.com/user-attachments/assets/e7ead151-04d7-4bd1-bc58-0191a1ba9ec0" />
   <br>
-  <i>Diagram showing where visual odometry sits in the larger context of underwater SLAM for reconstructions.</i>
+  <i>(Top) Diagram showing where visual odometry sits in the larger context of underwater SLAM for reconstructions. (Bottom) Figure showing SIFT correspondence on a stereo frame.</i>
 </p>
+
