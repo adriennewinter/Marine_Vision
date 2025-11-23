@@ -15,7 +15,6 @@
 #include <sys/ioctl.h>      //library for ioctl function
 #include <fcntl.h>          //library for open function
 #include <unistd.h>         //library for close function
-#include <cstdio>           //library for printf function
 #include <iostream>         //library for I/O operations
 #include <cstdio>           //library for standard input/output operations
 #include <assert.h>         //library for program assertion
